@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float playerSpeed = 4.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
 
@@ -14,10 +14,27 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
 
+    GameObject character;
+    protected Animator animator;
+    private int animationPlayerState;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         playerInput = new PlayerActionsManager();
+
+        foreach (Transform child in this.transform)
+        {
+            if (child.gameObject.name == "character")
+            {
+                character = child.gameObject;
+                //Debug.Log("curPlayer : " + curPlayer.name);
+                break;
+            }
+        }
+        if (character.name != "character") Debug.LogError("Missing gameobject character in Player");
+        animator = character.GetComponent<Animator>();
+        animationPlayerState = 0;
     }
 
     private void Update()
@@ -35,7 +52,10 @@ public class PlayerController : MonoBehaviour
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
+            animationPlayerState = 1;
         }
+        else
+            animationPlayerState = 0;
 
         // bool jumpPress = playerInput.Player.Jump.IsPressed();
         bool jumpPress = playerInput.Player.Jump.triggered;
@@ -46,6 +66,9 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        animator.SetInteger("PlayerState", animationPlayerState);
+        Debug.Log("PlayerState:" + animator.GetInteger("PlayerState"));
     }
 
     private void OnEnable()
