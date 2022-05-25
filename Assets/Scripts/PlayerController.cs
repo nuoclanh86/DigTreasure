@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (curPlayerState == PlayerState.Idle || curPlayerState == PlayerState.Digging)
         {
-            bool digPress = playerInput.Player.Jump.triggered;
+            bool digPress = playerInput.Player.ButtonD.triggered;
             if (digPress)
                 diggingTimePressCountDown = 2f;
 
