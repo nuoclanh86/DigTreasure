@@ -64,8 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1728587dda349bc47882f3699dd0adb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 2
-  jumpHeight: 1
+  playerSpeed: 4
   gravityValue: -9.81
 --- !u!1001 &6765604861596769475
 PrefabInstance:

@@ -26,7 +26,7 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""ButtonD"",
                     ""type"": ""Button"",
                     ""id"": ""8ca82146-06d5-432f-b24e-18b8860d74c3"",
                     ""expectedControlType"": ""Button"",
@@ -127,7 +127,7 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Jump"",
+                    ""action"": ""ButtonD"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -138,7 +138,7 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Jump"",
+                    ""action"": ""ButtonD"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -189,7 +189,7 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_ButtonD = m_Player.FindAction("ButtonD", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
     }
 
@@ -251,14 +251,14 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_ButtonD;
     private readonly InputAction m_Player_Look;
     public struct PlayerActions
     {
         private @PlayerActionsManager m_Wrapper;
         public PlayerActions(@PlayerActionsManager wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @ButtonD => m_Wrapper.m_Player_ButtonD;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -272,9 +272,9 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @ButtonD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnButtonD;
+                @ButtonD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnButtonD;
+                @ButtonD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnButtonD;
                 @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
@@ -285,9 +285,9 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @ButtonD.started += instance.OnButtonD;
+                @ButtonD.performed += instance.OnButtonD;
+                @ButtonD.canceled += instance.OnButtonD;
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
@@ -316,7 +316,7 @@ public partial class @PlayerActionsManager : IInputActionCollection2, IDisposabl
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnButtonD(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
     }
 }
