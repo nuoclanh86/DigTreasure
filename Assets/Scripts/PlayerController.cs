@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private float playerSpeed = 4.0f;
-    [SerializeField] private float jumpHeight = 1.0f;
+    //[SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
 
     protected CharacterController controller;
@@ -16,7 +16,10 @@ public class PlayerController : MonoBehaviour
 
     GameObject character;
     protected Animator animator;
-    private int animationPlayerState;
+    enum PlayerState { Idle=0, Running, Walking, Digging };
+    private PlayerState curPlayerState;
+
+    float diggingTimePressCountDown = 0f;
 
     private void Awake()
     {
@@ -28,13 +31,12 @@ public class PlayerController : MonoBehaviour
             if (child.gameObject.name == "character")
             {
                 character = child.gameObject;
-                //Debug.Log("curPlayer : " + curPlayer.name);
                 break;
             }
         }
         if (character.name != "character") Debug.LogError("Missing gameobject character in Player");
         animator = character.GetComponent<Animator>();
-        animationPlayerState = 0;
+        curPlayerState = PlayerState.Idle;
     }
 
     private void Update()
@@ -52,23 +54,41 @@ public class PlayerController : MonoBehaviour
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
-            animationPlayerState = 1;
+            curPlayerState = PlayerState.Running;
+            diggingTimePressCountDown = -1f;
+        }
+        else if (curPlayerState == PlayerState.Idle || curPlayerState == PlayerState.Digging)
+        {
+            bool digPress = playerInput.Player.Jump.triggered;
+            if (digPress)
+                diggingTimePressCountDown = 2f;
+
+            if (diggingTimePressCountDown > 0f)
+            {
+                diggingTimePressCountDown -= Time.deltaTime;
+                curPlayerState = PlayerState.Digging;
+            }
+            else
+                curPlayerState = PlayerState.Idle;
         }
         else
-            animationPlayerState = 0;
+            curPlayerState = PlayerState.Idle;
 
         // bool jumpPress = playerInput.Player.Jump.IsPressed();
-        bool jumpPress = playerInput.Player.Jump.triggered;
-        if (jumpPress && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
+        //bool jumpPress = playerInput.Player.Jump.triggered;
+        //if (jumpPress && groundedPlayer)
+        //{
+        //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        //}
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
 
-        animator.SetInteger("PlayerState", animationPlayerState);
-        Debug.Log("PlayerState:" + animator.GetInteger("PlayerState"));
+    private void LateUpdate()
+    {
+        animator.SetInteger("PlayerState", (int)curPlayerState);
+        //Debug.Log("PlayerState:" + animator.GetInteger("PlayerState"));
     }
 
     private void OnEnable()
@@ -81,4 +101,13 @@ public class PlayerController : MonoBehaviour
         playerInput.Disable();
     }
 
+    void PlayerMoving(Vector3 move)
+    {
+
+    }
+
+    void PlayerDigging()
+    {
+
+    }
 }
