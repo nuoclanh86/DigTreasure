@@ -46,12 +46,11 @@ public class TreasureManager : MonoBehaviour
         {
             Vector3 pos = new Vector3(0, 0, 0);
             pos = Random.insideUnitCircle * radiusSpawnChest;
-            //swap y,z
+            //swap y->z , y=0f:under ground
             pos.y += pos.z;
             pos.z = pos.y - pos.z;
-            pos.y = pos.y - pos.z;
-
-            pos.y += 6f;//cheat
+            pos.y = 0f;
+            //pos.y += 6f;//cheat
 
             pos += transform.position;
             treasureChests[i] = Instantiate(treasureChestObj, this.transform, true);
