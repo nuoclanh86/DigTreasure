@@ -9,22 +9,22 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
 
-    protected CharacterController controller;
-    protected PlayerActionsManager playerInput;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
+    protected CharacterController m_controller;
+    protected PlayerActionsManager m_playerInput;
+    private Vector3 m_playerVelocity;
+    private bool m_groundedPlayer;
 
     GameObject character;
-    protected Animator animator;
+    protected Animator m_animator;
     enum PlayerState { Idle=0, Running, Walking, Digging };
-    private PlayerState curPlayerState;
+    private PlayerState m_curPlayerState;
 
-    float diggingTimePressCountDown = 0f;
+    float m_diggingTimePressCountDown = 0f;
 
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
-        playerInput = new PlayerActionsManager();
+        m_controller = GetComponent<CharacterController>();
+        m_playerInput = new PlayerActionsManager();
 
         foreach (Transform child in this.transform)
         {
@@ -35,44 +35,44 @@ public class PlayerController : MonoBehaviour
             }
         }
         if (character.name != "character") Debug.LogError("Missing gameobject character in Player");
-        animator = character.GetComponent<Animator>();
-        curPlayerState = PlayerState.Idle;
+        m_animator = character.GetComponent<Animator>();
+        m_curPlayerState = PlayerState.Idle;
     }
 
     private void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        m_groundedPlayer = m_controller.isGrounded;
+        if (m_groundedPlayer && m_playerVelocity.y < 0)
         {
-            playerVelocity.y = 0f;
+            m_playerVelocity.y = 0f;
         }
 
-        Vector2 movement = playerInput.Player.Move.ReadValue<Vector2>();
+        Vector2 movement = m_playerInput.Player.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movement.x, 0, movement.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        m_controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
-            curPlayerState = PlayerState.Running;
-            diggingTimePressCountDown = -1f;
+            m_curPlayerState = PlayerState.Running;
+            m_diggingTimePressCountDown = -1f;
         }
-        else if (curPlayerState == PlayerState.Idle || curPlayerState == PlayerState.Digging)
+        else if (m_curPlayerState == PlayerState.Idle || m_curPlayerState == PlayerState.Digging)
         {
-            bool digPress = playerInput.Player.ButtonD.triggered;
+            bool digPress = m_playerInput.Player.ButtonD.triggered;
             if (digPress)
-                diggingTimePressCountDown = 2f;
+                m_diggingTimePressCountDown = 2f;
 
-            if (diggingTimePressCountDown > 0f)
+            if (m_diggingTimePressCountDown > 0f)
             {
-                diggingTimePressCountDown -= Time.deltaTime;
-                curPlayerState = PlayerState.Digging;
+                m_diggingTimePressCountDown -= Time.deltaTime;
+                m_curPlayerState = PlayerState.Digging;
             }
             else
-                curPlayerState = PlayerState.Idle;
+                m_curPlayerState = PlayerState.Idle;
         }
         else
-            curPlayerState = PlayerState.Idle;
+            m_curPlayerState = PlayerState.Idle;
 
         // bool jumpPress = playerInput.Player.Jump.IsPressed();
         //bool jumpPress = playerInput.Player.Jump.triggered;
@@ -81,23 +81,23 @@ public class PlayerController : MonoBehaviour
         //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         //}
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        m_playerVelocity.y += gravityValue * Time.deltaTime;
+        m_controller.Move(m_playerVelocity * Time.deltaTime);
     }
 
     private void LateUpdate()
     {
-        animator.SetInteger("PlayerState", (int)curPlayerState);
+        m_animator.SetInteger("PlayerState", (int)m_curPlayerState);
         //Debug.Log("PlayerState:" + animator.GetInteger("PlayerState"));
     }
 
     private void OnEnable()
     {
-        playerInput.Enable();
+        m_playerInput.Enable();
     }
 
     private void OnDisable()
     {
-        playerInput.Disable();
+        m_playerInput.Disable();
     }
 }
