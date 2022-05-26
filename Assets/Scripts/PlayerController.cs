@@ -100,14 +100,4 @@ public class PlayerController : MonoBehaviour
     {
         playerInput.Disable();
     }
-
-    void PlayerMoving(Vector3 move)
-    {
-
-    }
-
-    void PlayerDigging()
-    {
-
-    }
 }

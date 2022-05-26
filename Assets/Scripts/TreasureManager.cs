@@ -44,11 +44,21 @@ public class TreasureManager : MonoBehaviour
             pos.y += pos.z;
             pos.z = pos.y - pos.z;
             pos.y = 0f;
-            //pos.y += 6f;//cheat
+            pos.y += 6f;//cheat
 
             pos += transform.position;
             treasureChests[i] = Instantiate(treasureChestObj, this.transform, true);
             treasureChests[i].transform.position = pos;
         }
+    }
+
+    public Vector3[] GetTreasureChestPosisions()
+    {
+        Vector3[] positions = new Vector3[maxTreasureChest];
+        for (int i = 0; i < maxTreasureChest; i++)
+        {
+            positions[i] = treasureChests[i].transform.position;
+        }
+        return positions;
     }
 }
