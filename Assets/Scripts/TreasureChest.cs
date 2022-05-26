@@ -15,11 +15,12 @@ public class TreasureChest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public bool IsDigged()
+    public bool IsDigged
     {
-        return m_isDigged;
+        get { return m_isDigged; }
+        set { m_isDigged = value; }
     }
 }

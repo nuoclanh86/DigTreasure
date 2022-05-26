@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [SerializeField] private float playerSpeed = 4.0f;
     //[SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
 
@@ -18,6 +16,7 @@ public class PlayerController : MonoBehaviour
     protected Animator m_animator;
     enum PlayerState { Idle=0, Running, Walking, Digging };
     private PlayerState m_curPlayerState;
+    private float m_moveSpeed = 1f;
 
     float m_diggingTimePressCountDown = 0f;
 
@@ -39,6 +38,12 @@ public class PlayerController : MonoBehaviour
         m_curPlayerState = PlayerState.Idle;
     }
 
+    public float MoveSpeed
+    {
+        get { return m_moveSpeed; }
+        set { m_moveSpeed = value; }
+    }
+
     private void Update()
     {
         m_groundedPlayer = m_controller.isGrounded;
@@ -49,12 +54,16 @@ public class PlayerController : MonoBehaviour
 
         Vector2 movement = m_playerInput.Player.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movement.x, 0, movement.y);
-        m_controller.Move(move * Time.deltaTime * playerSpeed);
+        m_controller.Move(move * Time.deltaTime * m_moveSpeed);
 
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
-            m_curPlayerState = PlayerState.Running;
+            if (m_moveSpeed > GameManager.Instance.gameSettings.walkSpeed)
+                m_curPlayerState = PlayerState.Running;
+            else
+                m_curPlayerState = PlayerState.Walking;
+
             m_diggingTimePressCountDown = -1f;
         }
         else if (m_curPlayerState == PlayerState.Idle || m_curPlayerState == PlayerState.Digging)
