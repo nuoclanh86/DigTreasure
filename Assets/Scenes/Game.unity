@@ -577,49 +577,21 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
---- !u!1 &1334735368 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3647464644952777996, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
-  m_PrefabInstance: {fileID: 1917420012}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1334735370
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334735368}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 759b4db71d7bf4e4088a370468e2522a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1334735371
+--- !u!114 &1105260639 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1105260639, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+  m_PrefabInstance: {fileID: 947599840702628785}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334735368}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb9373796cc9ce54688c82a2fa04ae97, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treasureManager: {fileID: 920502900}
-  player: {fileID: 1519022240}
---- !u!1 &1519022240 stripped
+--- !u!1 &1251714980 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 7886691535344992941, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
-  m_PrefabInstance: {fileID: 1917420012}
+  m_CorrespondingSourceObject: {fileID: 6353310937592066807, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+  m_PrefabInstance: {fileID: 947599840702628785}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1535187927
 GameObject:
@@ -723,6 +695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: dd634d7229b2ee24c9854640d6bea816, type: 2}
   spawnPoints: []
+  timeleftText: {fileID: 1105260639}
 --- !u!4 &1687227745
 Transform:
   m_ObjectHideFlags: 0
@@ -860,6 +833,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1334735371, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
+      propertyPath: digButton
+      value: 
+      objectReference: {fileID: 1251714980}
+    - target: {fileID: 1334735371, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
+      propertyPath: treasureManager
+      value: 
+      objectReference: {fileID: 920502900}
     - target: {fileID: 7886691535344992937, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
       propertyPath: m_RootOrder
       value: 5

@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GlobalGameSettings", menuName = "Gameplay/Global Game Settings", order = 1)]
 public class GlobalGameSettings : ScriptableObject
 {
+    [Header("Gameplay")]
+    public float timePerMatch = 90f;
+
     [Header("Radar")]
     [Tooltip("The signal of device will be from weak to strong base on the distance of MC position and Treasure Chest position, far to near")]
     public float signal_lvl_1_distance = 20f;
