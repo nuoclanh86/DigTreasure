@@ -474,4 +474,6 @@ MonoBehaviour:
   - {fileID: 4287399668354407580}
   - {fileID: 2224675157917357871}
   - {fileID: 3821874555443801953}
-  timeleftText: {fileID: 0}
+  ingameUI: {fileID: 0}
+  player: {fileID: 0}
+  treasureManager: {fileID: 0}

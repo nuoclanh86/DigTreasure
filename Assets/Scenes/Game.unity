@@ -185,6 +185,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7886691535344992937, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
   m_PrefabInstance: {fileID: 1917420012}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &625937459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4500172415700547348, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+  m_PrefabInstance: {fileID: 947599840702628785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &689936578
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +464,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8050602240878665711, guid: cb596735cf55a8c4892b61650ed25994, type: 3}
   m_PrefabInstance: {fileID: 8050602241714068891}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &971924198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7886691535344992941, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
+  m_PrefabInstance: {fileID: 1917420012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &985527682
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,17 +545,6 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
---- !u!114 &1105260639 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1105260639, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
-  m_PrefabInstance: {fileID: 947599840702628785}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1251714980 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6353310937592066807, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
@@ -622,6 +621,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 33, y: 0, z: 0}
+--- !u!114 &1687227744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8969998987465241453, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
+  m_PrefabInstance: {fileID: 8969998987002887693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2000af90702bb3447bba0a84def42c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1874868900
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +819,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1301245111292202471, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687227744}
     - target: {fileID: 4500172415700547348, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
       propertyPath: m_Name
       value: Canvas_InGame
@@ -973,7 +987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8969998987465241452, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8969998987465241452, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -981,7 +995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8969998987465241452, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -17.6
       objectReference: {fileID: 0}
     - target: {fileID: 8969998987465241452, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1012,8 +1026,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969998987465241453, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
-      propertyPath: timeleftText
+      propertyPath: player
       value: 
-      objectReference: {fileID: 1105260639}
+      objectReference: {fileID: 971924198}
+    - target: {fileID: 8969998987465241453, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
+      propertyPath: ingameUI
+      value: 
+      objectReference: {fileID: 625937459}
+    - target: {fileID: 8969998987465241453, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
+      propertyPath: treasureManager
+      value: 
+      objectReference: {fileID: 920502900}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}

@@ -14,7 +14,6 @@ public class TreasureManager : MonoBehaviour
     void Start()
     {
         treasureChests = new GameObject[maxTreasureChest];
-        SpawnTreasureChests();
     }
 
     private void OnDrawGizmosSelected()
@@ -23,7 +22,7 @@ public class TreasureManager : MonoBehaviour
         Gizmos.DrawSphere(transform.position, radiusSpawnChest);
     }
 
-    protected void SpawnTreasureChests()
+    public void SpawnTreasureChests()
     {
         //delete old chests
         if (treasureChests[0] != null)
@@ -51,15 +50,15 @@ public class TreasureManager : MonoBehaviour
         }
     }
 
-    public Vector3[] GetTreasureChestPosisions()
+    public List<GameObject> GetTreasureChests()
     {
-        Vector3[] positions = new Vector3[maxTreasureChest];
+        List<GameObject> chests = new List<GameObject>();
         for (int i = 0; i < maxTreasureChest; i++)
         {
             if (treasureChests[i].GetComponent<TreasureChest>()
                 && treasureChests[i].GetComponent<TreasureChest>().IsDigged == false)
-                positions[i] = treasureChests[i].transform.position;
+                chests.Add(treasureChests[i]);
         }
-        return positions;
+        return chests;
     }
 }

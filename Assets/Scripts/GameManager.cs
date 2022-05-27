@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] spawnPoints;
     public GameObject ingameUI;
     public GameObject player;
+    public GameObject treasureManager;
 
     float timeleft = 0f;
 
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         timeleft = gameSettings.timePerMatch;
+        StartNewGame();
     }
 
     private void Update()
@@ -43,12 +45,13 @@ public class GameManager : MonoBehaviour
         ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
     }
 
-    public void ResetGame()
+    public void StartNewGame()
     {
         Time.timeScale = 1;
         timeleft = gameSettings.timePerMatch;
         ingameUI.GetComponent<IngameUI>().ResetGameUI();
         player.GetComponent<PlayerController>().RandomPlayerPosition();
+        treasureManager.GetComponent<TreasureManager>().SpawnTreasureChests();
     }
 
     public void BackToMainMenu()

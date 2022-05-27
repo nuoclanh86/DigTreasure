@@ -26,7 +26,7 @@ public class RadarController : MonoBehaviour
             m_delayEachScan = GameManager.Instance.gameSettings.delayEachScan;
             SignalStrength signal = RadarScan();
             UpdateRadarSignal(signal);
-            Debug.Log("signal: " + signal);
+            //Debug.Log("signal: " + signal);
             if (signal < SignalStrength.Level2_Medium) // weak signal - run
                 player.GetComponent<PlayerController>().MoveSpeed = GameManager.Instance.gameSettings.runSpeed;
             else // strong signal - walk
@@ -39,10 +39,15 @@ public class RadarController : MonoBehaviour
     SignalStrength RadarScan()
     {
         SignalStrength signal = SignalStrength.None;
-        Vector3[] treasureChestPosisions = treasureManager.GetComponent<TreasureManager>().GetTreasureChestPosisions();
-        foreach (Vector3 pos in treasureChestPosisions)
+        List<GameObject> treasureChests = treasureManager.GetComponent<TreasureManager>().GetTreasureChests();
+        if (treasureChests.Count == 0)
         {
-            Vector3 posXZ = new Vector3(pos.x, player.transform.position.y, pos.z);
+            GameManager.Instance.EndGame("You Won");
+            return signal;
+        }
+        foreach (GameObject c in treasureChests)
+        {
+            Vector3 posXZ = new Vector3(c.transform.position.x, player.transform.position.y, c.transform.position.z);
             float distance = Vector3.Distance(posXZ, player.transform.position);
             //Debug.Log("distance to treasure : " + distance);
 
