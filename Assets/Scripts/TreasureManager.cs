@@ -56,7 +56,9 @@ public class TreasureManager : MonoBehaviour
         Vector3[] positions = new Vector3[maxTreasureChest];
         for (int i = 0; i < maxTreasureChest; i++)
         {
-            positions[i] = treasureChests[i].transform.position;
+            if (treasureChests[i].GetComponent<TreasureChest>()
+                && treasureChests[i].GetComponent<TreasureChest>().IsDigged == false)
+                positions[i] = treasureChests[i].transform.position;
         }
         return positions;
     }
