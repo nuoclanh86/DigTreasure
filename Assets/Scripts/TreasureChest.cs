@@ -15,6 +15,7 @@ public class TreasureChest : MonoBehaviour
         m_positionPlayerDiggingXZ = Vector3.zero;
         m_isDigged = false;
         player = GameObject.FindGameObjectWithTag("Player");
+        TreasureChestOpened(false);
     }
 
     // Update is called once per frame
@@ -30,12 +31,26 @@ public class TreasureChest : MonoBehaviour
             this.transform.position += Vector3.up * Time.deltaTime * GameManager.Instance.gameSettings.digSpeed;
         }
         else if (this.transform.position.y >= player.transform.position.y)
+        {
             m_isDigged = true;
+            TreasureChestOpened(true);
+        }
     }
 
     public bool IsDigged
     {
         get { return m_isDigged; }
         set { m_isDigged = value; }
+    }
+
+    void TreasureChestOpened(bool val)
+    {
+        foreach (Transform child in this.transform)
+        {
+            if (child.gameObject.name.Contains("open") == true)
+                child.gameObject.SetActive(val == true);
+            else if (child.gameObject.name.Contains("close") == true)
+                child.gameObject.SetActive(val == false);
+        }
     }
 }
