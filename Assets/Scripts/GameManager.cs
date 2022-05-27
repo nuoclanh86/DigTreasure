@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public GlobalGameSettings gameSettings;
     public GameObject[] spawnPoints;
-    public TextMeshProUGUI timeleftText;
+    public GameObject ingameUI;
+    public GameObject player;
 
     float timeleft = 0f;
 
@@ -22,35 +22,33 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         timeleft = gameSettings.timePerMatch;
-        timeleftText.text = "Timeleft\n" + (int)timeleft;
     }
 
     private void Update()
     {
         if (timeleft < 0)
         {
-            EndGame();
+            EndGame("Time Out");
         }
         else
         {
             timeleft -= Time.deltaTime;
-            timeleftText.text = "Timeleft\n" + (int)timeleft;
+            ingameUI.GetComponent<IngameUI>().UpdateTimeLeft(timeleft);
         }
     }
 
-    public void EndGame()
+    public void EndGame(string resultGame)
     {
-
+        Time.timeScale = 0;
+        ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
     }
 
-    public void PauseGame()
+    public void ResetGame()
     {
-
-    }
-
-    public void ResumeGame()
-    {
-
+        Time.timeScale = 1;
+        timeleft = gameSettings.timePerMatch;
+        ingameUI.GetComponent<IngameUI>().ResetGameUI();
+        player.GetComponent<PlayerController>().RandomPlayerPosition();
     }
 
     public void BackToMainMenu()

@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private float m_moveSpeed = 1f;
 
     float m_diggingTimePressCountDown = 0f;
+    Vector3 warpPosition = Vector3.zero;
 
     private void Awake()
     {
@@ -40,8 +41,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        GameObject spawnPoint = GameManager.Instance.spawnPoints[Random.Range(0, GameManager.Instance.spawnPoints.Length)];
-        this.transform.position = spawnPoint.transform.position;
+        RandomPlayerPosition();
     }
 
     public float MoveSpeed
@@ -109,6 +109,12 @@ public class PlayerController : MonoBehaviour
     {
         m_animator.SetInteger("PlayerState", (int)m_curPlayerState);
         //Debug.Log("PlayerState:" + animator.GetInteger("PlayerState"));
+
+        if (warpPosition != Vector3.zero)
+        {
+            transform.position = warpPosition;
+            warpPosition = Vector3.zero;
+        }
     }
 
     private void OnEnable()
@@ -119,5 +125,11 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         m_playerInput.Disable();
+    }
+
+    public void RandomPlayerPosition()
+    {
+        GameObject spawnPoint = GameManager.Instance.spawnPoints[Random.Range(0, GameManager.Instance.spawnPoints.Length)];
+        warpPosition = spawnPoint.transform.position;
     }
 }
