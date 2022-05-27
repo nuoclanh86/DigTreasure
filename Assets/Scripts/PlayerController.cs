@@ -38,6 +38,12 @@ public class PlayerController : MonoBehaviour
         m_curPlayerState = PlayerState.Idle;
     }
 
+    private void Start()
+    {
+        GameObject spawnPoint = GameManager.Instance.spawnPoints[Random.Range(0, GameManager.Instance.spawnPoints.Length)];
+        this.transform.position = spawnPoint.transform.position;
+    }
+
     public float MoveSpeed
     {
         get { return m_moveSpeed; }
