@@ -44,7 +44,6 @@ public class TreasureManager : MonoBehaviour
             pos.y += pos.z;
             pos.z = pos.y - pos.z;
             pos.y = 0f;
-            pos.y += 6f;//cheat
 
             pos += transform.position;
             treasureChests[i] = Instantiate(treasureChestObj, this.transform, true);

@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     GameObject character;
     protected Animator m_animator;
-    enum PlayerState { Idle=0, Running, Walking, Digging };
+    public enum PlayerState { Idle=0, Running, Walking, Digging };
     private PlayerState m_curPlayerState;
     private float m_moveSpeed = 1f;
 
@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
     {
         get { return m_moveSpeed; }
         set { m_moveSpeed = value; }
+    }
+    public PlayerState CurPlayerState
+    {
+        get { return m_curPlayerState; }
+        set { m_curPlayerState = value; }
     }
 
     private void Update()

@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class TreasureChest : MonoBehaviour
 {
-    private bool m_isDigging = false;
+    GameObject player;
+    Vector3 m_positionPlayerDiggingXZ;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_isDigging = false;
+        m_positionPlayerDiggingXZ = Vector3.zero;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(m_isDigging && this.transform.position.y >= 1f)
+        m_positionPlayerDiggingXZ = player.transform.position;
+        m_positionPlayerDiggingXZ.y = this.transform.position.y;
+        if (Vector3.Distance(m_positionPlayerDiggingXZ, this.transform.position) <= GameManager.Instance.gameSettings.signal_lvl_3_distance
+            && player.GetComponent<PlayerController>().CurPlayerState == PlayerController.PlayerState.Digging
+            && this.transform.position.y <= player.transform.position.y)
         {
             this.transform.position += Vector3.up * Time.deltaTime * GameManager.Instance.gameSettings.digSpeed;
         }
-    }
-
-    public bool IsDigging
-    {
-        get { return m_isDigging; }
-        set { m_isDigging = value; }
     }
 }
