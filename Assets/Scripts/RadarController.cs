@@ -6,6 +6,7 @@ public class RadarController : MonoBehaviour
 {
     public GameObject treasureManager;
     public GameObject player;
+    public GameObject digButton;
 
     enum SignalStrength { None = 0, Level1_Weak, Level2_Medium, Level3_Strong };
     float m_delayEachScan = -1f;
@@ -14,6 +15,7 @@ public class RadarController : MonoBehaviour
     void Start()
     {
         m_delayEachScan = -1f;
+        digButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -64,5 +66,6 @@ public class RadarController : MonoBehaviour
                 child.gameObject.SetActive(shouldActive);
             }
         }
+        digButton.SetActive(levelSignal == SignalStrength.Level3_Strong);
     }
 }
