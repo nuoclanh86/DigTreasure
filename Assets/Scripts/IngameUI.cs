@@ -20,14 +20,15 @@ public class IngameUI : MonoBehaviour
         ResetGameUI();
     }
 
-    public void UpdateTimeLeft(float val)
+    public void UpdateTimeLeft(int val)
     {
-        timeleftText.text = "Timeleft\n" + (int)val;
+        Debug.Log("UpdateTimeLeft : " + val);
+        timeleftText.text = "Timeleft\n" + val;
     }
 
     public void ShowEndGameUI(string resultGame)
     {
-        if (PhotonNetwork.InRoom && photonView.IsMine)
+        if (photonView.IsMine)
         {
             virtualController.gameObject.SetActive(false);
             endScreen.gameObject.SetActive(true);
@@ -37,7 +38,7 @@ public class IngameUI : MonoBehaviour
 
     public void ResetGameUI()
     {
-        if (PhotonNetwork.InRoom && photonView.IsMine)
+        if (photonView.IsMine)
         {
             virtualController.gameObject.SetActive(true);
             endScreen.gameObject.SetActive(false);

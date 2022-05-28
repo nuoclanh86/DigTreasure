@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public GlobalGameSettings gameSettings;
     public GameObject[] spawnPoints;
@@ -15,6 +17,9 @@ public class GameManager : MonoBehaviour
     [Header("TreasureChest")]
     public GameObject treasureChestObj;
     public float radiusSpawnChest = 22f;
+
+    //[Header("Photon PUN")]
+    //public PhotonView photonView;
 
     public static GameManager Instance { get; private set; }
     void Awake()
@@ -32,15 +37,33 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient && photonView.IsMine)
+        {
+            if (timeleft > 0)
+            {
+                timeleft -= Time.deltaTime;
+                if (PhotonNetwork.InRoom)
+                {
+                    ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+                    hash.Add("curTimeleft", timeleft);
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                }
+                else
+                {
+                    DisplayTimeleft(timeleft);
+                }
+            }
+        }
+
         if (timeleft < 0)
         {
             EndGame("Time Out");
         }
-        else
-        {
-            timeleft -= Time.deltaTime;
-            ingameUI.GetComponent<IngameUI>().UpdateTimeLeft(timeleft);
-        }
+    }
+
+    private void DisplayTimeleft(float timeleft)
+    {
+        ingameUI.GetComponent<IngameUI>().UpdateTimeLeft((int)timeleft);
     }
 
     public void EndGame(string resultGame)
@@ -101,5 +124,14 @@ public class GameManager : MonoBehaviour
     {
         Gizmos.color = new Color(0, 1, 0, 1);
         Gizmos.DrawSphere(transform.position, radiusSpawnChest);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        Debug.Log("Player: " + targetPlayer + " changed " + changedProps);
+        if (changedProps["curTimeleft"] != null)
+        {
+            DisplayTimeleft((float)changedProps["curTimeleft"]);
+        }
     }
 }
