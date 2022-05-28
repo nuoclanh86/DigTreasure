@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RadarController : MonoBehaviour
 {
-    public GameObject treasureManager;
     public GameObject player;
     public GameObject digButton;
+    GameObject treasureManager;
 
     enum SignalStrength { None = 0, Level1_Weak, Level2_Medium, Level3_Strong };
     float m_delayEachScan = -1f;
@@ -16,6 +16,7 @@ public class RadarController : MonoBehaviour
     {
         m_delayEachScan = -1f;
         digButton.SetActive(false);
+        treasureManager = GameObject.FindGameObjectWithTag("TreasureManager");
     }
 
     // Update is called once per frame

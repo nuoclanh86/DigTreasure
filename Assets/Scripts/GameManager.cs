@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] spawnPoints;
     public GameObject ingameUI;
     public GameObject player;
-    public GameObject treasureManager;
+    GameObject treasureManager;
 
     float timeleft = 0f;
 
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        treasureManager = GameObject.FindGameObjectWithTag("TreasureManager");
         timeleft = gameSettings.timePerMatch;
         StartNewGame();
     }
