@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 {
     //[SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
+
+    public PhotonView photonView;
 
     protected CharacterController m_controller;
     protected PlayerActionsManager m_playerInput;
@@ -57,7 +60,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        m_groundedPlayer = m_controller.isGrounded;
+        if (PhotonNetwork.InRoom && !photonView.IsMine)
+        {
+            return;
+        }
+            m_groundedPlayer = m_controller.isGrounded;
         if (m_groundedPlayer && m_playerVelocity.y < 0)
         {
             m_playerVelocity.y = 0f;

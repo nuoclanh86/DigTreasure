@@ -39,6 +39,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("OnSceneLoaded");
         if (PhotonNetwork.InRoom)
         {
             PhotonNetwork.Instantiate("Player", Vector3.up * 6, Quaternion.identity);

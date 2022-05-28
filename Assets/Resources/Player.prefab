@@ -1968,6 +1968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityValue: -9.81
+  photonView: {fileID: 1539560819297303012}
 --- !u!114 &1539560819297303012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2564,6 +2565,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2025642494529935212}
+    - target: {fileID: 3590878466180222176, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: photonView
+      value: 
+      objectReference: {fileID: 1539560819297303012}
     - target: {fileID: 4500172415700547348, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
       propertyPath: m_Name
       value: Canvas_InGame
@@ -2676,6 +2681,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8173944502678821193}
     m_Modifications:
+    - target: {fileID: 81082766834681602, guid: 1090fdd9946acb244904f33051af8742, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1290231836461885730, guid: 1090fdd9946acb244904f33051af8742, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2462247863809421363, guid: 1090fdd9946acb244904f33051af8742, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2726,6 +2739,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2462247863809421363, guid: 1090fdd9946acb244904f33051af8742, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885451726911244309, guid: 1090fdd9946acb244904f33051af8742, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8600359540908524036, guid: 1090fdd9946acb244904f33051af8742, type: 3}
