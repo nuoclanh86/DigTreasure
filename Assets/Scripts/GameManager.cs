@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject ingameUI;
     public GameObject player;
 
-    float timeleft = 0f;
+    float m_timeleft = 0f;
 
     [Header("TreasureChest")]
     public GameObject treasureChestObj;
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         spawnPointCoordinates = GameObject.FindGameObjectWithTag("SpawnPointCoordinates");
         if (spawnPointCoordinates == null) Debug.LogError("Could not found SpawnPointCoordinates");
-        timeleft = gameSettings.timePerMatch;
+        m_timeleft = gameSettings.timePerMatch;
         StartNewGame();
     }
 
@@ -40,31 +40,30 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient && photonView.IsMine)
         {
-            if (timeleft > 0)
+            if (m_timeleft > 0)
             {
-                timeleft -= Time.deltaTime;
+                m_timeleft -= Time.deltaTime;
                 if (PhotonNetwork.InRoom)
                 {
                     ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-                    hash.Add("curTimeleft", timeleft);
+                    hash.Add("curTimeleft", m_timeleft);
                     PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 }
                 else
                 {
-                    DisplayTimeleft(timeleft);
+                    DisplayTimeleft(m_timeleft);
                 }
             }
-        }
-
-        if (timeleft < 0)
-        {
-            EndGame("Time Out");
         }
     }
 
     private void DisplayTimeleft(float timeleft)
     {
         ingameUI.GetComponent<IngameUI>().UpdateTimeLeft((int)timeleft);
+        if (timeleft < 0)
+        {
+            EndGame("Time Out");
+        }
     }
 
     public void EndGame(string resultGame)
@@ -76,7 +75,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void StartNewGame()
     {
         Time.timeScale = 1;
-        timeleft = gameSettings.timePerMatch;
+        m_timeleft = gameSettings.timePerMatch;
         ingameUI.GetComponent<IngameUI>().ResetGameUI();
         player.GetComponent<PlayerController>().RandomPlayerPosition();
         SpawnTreasureChests();
@@ -139,10 +138,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-        Debug.Log("Player: " + targetPlayer + " changed " + changedProps);
+        //Debug.Log("Player: " + targetPlayer + " changed " + changedProps);
         if (changedProps["curTimeleft"] != null)
         {
-            DisplayTimeleft((float)changedProps["curTimeleft"]);
+            float curTimeleft = (float)changedProps["curTimeleft"];
+            DisplayTimeleft(curTimeleft);
         }
     }
 }

@@ -2632,6 +2632,10 @@ PrefabInstance:
       propertyPath: photonView
       value: 
       objectReference: {fileID: 1539560819297303012}
+    - target: {fileID: 3590878466180222176, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: playAgainBtn
+      value: 
+      objectReference: {fileID: 4912338939120454140}
     - target: {fileID: 4500172415700547348, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
       propertyPath: m_Name
       value: Canvas_InGame
@@ -2725,6 +2729,11 @@ PrefabInstance:
 --- !u!1 &3407493107572158121 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4500172415700547348, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+  m_PrefabInstance: {fileID: 1241315734260914621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4912338939120454140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6131132096722341953, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
   m_PrefabInstance: {fileID: 1241315734260914621}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5265117771057785674 stripped

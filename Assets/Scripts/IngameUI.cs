@@ -8,6 +8,7 @@ public class IngameUI : MonoBehaviour
 {
     public GameObject virtualController;
     public GameObject endScreen;
+    public GameObject playAgainBtn;
 
     public TextMeshProUGUI timeleftText;
     public TextMeshProUGUI endScreenResult;
@@ -22,7 +23,7 @@ public class IngameUI : MonoBehaviour
 
     public void UpdateTimeLeft(int val)
     {
-        Debug.Log("UpdateTimeLeft : " + val);
+        //Debug.Log("UpdateTimeLeft : " + val);
         timeleftText.text = "Timeleft\n" + val;
     }
 
@@ -33,6 +34,10 @@ public class IngameUI : MonoBehaviour
             virtualController.gameObject.SetActive(false);
             endScreen.gameObject.SetActive(true);
             endScreenResult.text = resultGame;
+            if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient && photonView.IsMine)
+                playAgainBtn.gameObject.SetActive(true);
+            else
+                playAgainBtn.gameObject.SetActive(false);
         }
     }
 
