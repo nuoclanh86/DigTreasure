@@ -58,18 +58,21 @@ public class RadarController : MonoBehaviour
             GameManager.Instance.EndGame("You Won");
             return signal;
         }
-        foreach (GameObject c in treasureChests)
+        foreach (GameObject chest in treasureChests)
         {
-            Vector3 posXZ = new Vector3(c.transform.position.x, player.transform.position.y, c.transform.position.z);
-            float distance = Vector3.Distance(posXZ, player.transform.position);
-            //Debug.Log("distance to treasure : " + distance);
+            if (chest.GetComponent<TreasureChest>().IsDigged == false)
+            {
+                Vector3 posXZ = new Vector3(chest.transform.position.x, player.transform.position.y, chest.transform.position.z);
+                float distance = Vector3.Distance(posXZ, player.transform.position);
+                //Debug.Log("distance to treasure : " + distance);
 
-            if (distance < GameManager.Instance.gameSettings.signal_lvl_3_distance)
-                return SignalStrength.Level3_Strong;
-            else if (distance < GameManager.Instance.gameSettings.signal_lvl_2_distance)
-                signal = SignalStrength.Level2_Medium;
-            else if (distance < GameManager.Instance.gameSettings.signal_lvl_1_distance)
-                signal = (SignalStrength)Mathf.Max((int)SignalStrength.Level1_Weak, (int)signal);
+                if (distance < GameManager.Instance.gameSettings.signal_lvl_3_distance)
+                    return SignalStrength.Level3_Strong;
+                else if (distance < GameManager.Instance.gameSettings.signal_lvl_2_distance)
+                    signal = SignalStrength.Level2_Medium;
+                else if (distance < GameManager.Instance.gameSettings.signal_lvl_1_distance)
+                    signal = (SignalStrength)Mathf.Max((int)SignalStrength.Level1_Weak, (int)signal);
+            }
         }
         return signal;
     }

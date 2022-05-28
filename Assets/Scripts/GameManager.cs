@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
             pos.y = 0f;
 
             pos += transform.position;
-            GameObject treasureChest = Instantiate(treasureChestObj, this.transform, true);
+            GameObject treasureChest = Instantiate(treasureChestObj);
             treasureChest.transform.position = pos;
         }
     }

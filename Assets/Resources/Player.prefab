@@ -1912,7 +1912,7 @@ GameObject:
   - component: {fileID: 2025642493450579267}
   - component: {fileID: 1539560819297303012}
   m_Layer: 0
-  m_Name: PlayerOnline
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
