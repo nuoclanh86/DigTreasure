@@ -116,7 +116,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             pos.y = 0f;
 
             pos += spawnPointCoordinates.transform.position;
-            GameObject treasureChest = Instantiate(treasureChestObj);
+            GameObject treasureChest;
+            if (PhotonNetwork.InRoom)
+            {
+                treasureChest = PhotonNetwork.Instantiate("Treasure", Vector3.up, Quaternion.identity);
+            }
+            else
+            {
+                treasureChest = Instantiate(Resources.Load("Treasure"), Vector3.up, Quaternion.identity) as GameObject;
+            }
+            //GameObject treasureChest = Instantiate(treasureChestObj);
             treasureChest.transform.position = pos;
         }
     }
@@ -124,7 +133,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0, 1, 0, 1);
-        if(spawnPointCoordinates!=null)
+        if (spawnPointCoordinates != null)
             Gizmos.DrawSphere(spawnPointCoordinates.transform.position, gameSettings.radiusSpawnChest);
     }
 
