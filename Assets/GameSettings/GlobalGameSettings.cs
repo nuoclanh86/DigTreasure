@@ -17,7 +17,8 @@ public class GlobalGameSettings : ScriptableObject
 
     [Header("TreasureChest")]
     public float digSpeed = 1.0f;
-    public int maxTreasureChest = 2;
+    public int maxTreasureChest = 2;    
+    public float radiusSpawnChest = 20f;
 
     [Header("Player")]
     public float runSpeed = 3.0f;

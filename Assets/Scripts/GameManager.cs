@@ -8,7 +8,6 @@ using Photon.Realtime;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public GlobalGameSettings gameSettings;
-    public GameObject[] spawnPoints;
     public GameObject ingameUI;
     public GameObject player;
 
@@ -16,7 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("TreasureChest")]
     public GameObject treasureChestObj;
-    public float radiusSpawnChest = 22f;
+    GameObject spawnPointCoordinates;
 
     //[Header("Photon PUN")]
     //public PhotonView photonView;
@@ -31,6 +30,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        spawnPointCoordinates = GameObject.FindGameObjectWithTag("SpawnPointCoordinates");
+        if (spawnPointCoordinates == null) Debug.LogError("Could not found SpawnPointCoordinates");
         timeleft = gameSettings.timePerMatch;
         StartNewGame();
     }
@@ -108,13 +109,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < gameSettings.maxTreasureChest; i++)
         {
             Vector3 pos = new Vector3(0, 0, 0);
-            pos = Random.insideUnitCircle * radiusSpawnChest;
+            pos = Random.insideUnitCircle * gameSettings.radiusSpawnChest;
             //swap y->z , y=0f:under ground
             pos.y += pos.z;
             pos.z = pos.y - pos.z;
             pos.y = 0f;
 
-            pos += transform.position;
+            pos += spawnPointCoordinates.transform.position;
             GameObject treasureChest = Instantiate(treasureChestObj);
             treasureChest.transform.position = pos;
         }
@@ -123,7 +124,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0, 1, 0, 1);
-        Gizmos.DrawSphere(transform.position, radiusSpawnChest);
+        if(spawnPointCoordinates!=null)
+            Gizmos.DrawSphere(spawnPointCoordinates.transform.position, gameSettings.radiusSpawnChest);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)

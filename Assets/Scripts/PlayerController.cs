@@ -137,7 +137,8 @@ public class PlayerController : MonoBehaviour
 
     public void RandomPlayerPosition()
     {
-        GameObject spawnPoint = GameManager.Instance.spawnPoints[Random.Range(0, GameManager.Instance.spawnPoints.Length)];
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        GameObject spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         warpPosition = spawnPoint.transform.position;
     }
 }
