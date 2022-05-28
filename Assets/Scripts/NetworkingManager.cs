@@ -13,8 +13,19 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Connecting to Server ... ");
-        PhotonNetwork.ConnectUsingSettings();
+        if (!PhotonNetwork.IsConnected)
+        {
+            connecting.SetActive(true);
+            multiplayerBtn.SetActive(false);
+            Debug.Log("Connecting to Server ... ");
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        else
+        {
+            Debug.Log("Connected to Server ... ");
+            connecting.SetActive(false);
+            multiplayerBtn.SetActive(true);
+        }
     }
 
     // Update is called once per frame

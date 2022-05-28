@@ -85,10 +85,18 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
 
     }
+    IEnumerator LoadMainMenu()
+    {
+        Debug.Log("Loading MainMenu ... ");
+        PhotonNetwork.LeaveRoom();
+        while (PhotonNetwork.InRoom)
+            yield return null;
+        SceneManager.LoadScene(0);
+    }
 
     public void LoadMainMenuScene()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(LoadMainMenu());
     }
 
     void SpawnTreasureChests()

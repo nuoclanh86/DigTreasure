@@ -44,12 +44,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.Instantiate("Player", Vector3.up * 6, Quaternion.identity);
         }
-        else
-        {
-            Instantiate(Resources.Load("Player"), Vector3.up * 6, Quaternion.identity);
-        }
 
         GameObject playerOnline = GameObject.FindGameObjectWithTag("Player");
-        virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerOnline.transform;
+        if (playerOnline != null)
+            virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerOnline.transform;
     }
 }
