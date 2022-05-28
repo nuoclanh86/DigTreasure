@@ -2922,6 +2922,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3407493107572158121}
     - target: {fileID: 8969998987465241453, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
+      propertyPath: photonView
+      value: 
+      objectReference: {fileID: 1539560819297303012}
+    - target: {fileID: 8969998987465241453, guid: b183fd13cae41cf439a84782c5e269c4, type: 3}
       propertyPath: treasureManager
       value: 
       objectReference: {fileID: 0}
