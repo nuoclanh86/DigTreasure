@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
 
-    public PhotonView photonView;
-
     protected CharacterController m_controller;
     protected PlayerActionsManager m_playerInput;
     private Vector3 m_playerVelocity;
@@ -24,9 +22,12 @@ public class PlayerController : MonoBehaviour
     float m_diggingTimePressCountDown = 0f;
     Vector3 warpPosition = Vector3.zero;
 
+    PhotonView photonView;
+
     private void Awake()
     {
         m_controller = GetComponent<CharacterController>();
+        photonView = GetComponent<PhotonView>();
         m_playerInput = new PlayerActionsManager();
 
         foreach (Transform child in this.transform)
