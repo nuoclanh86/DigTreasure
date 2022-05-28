@@ -37,11 +37,23 @@ public class RadarController : MonoBehaviour
             m_delayEachScan -= Time.deltaTime;
     }
 
+    bool AreAllTreasureChestsDigged(GameObject[] treasureChests)
+    {
+        bool result = true;
+        if (treasureChests.Length != 0)
+            foreach (GameObject chest in treasureChests)
+            {
+                if (chest.GetComponent<TreasureChest>().IsDigged == false)
+                    return false;
+            }
+        return result;
+    }
+
     SignalStrength RadarScan()
     {
         SignalStrength signal = SignalStrength.None;
-        List<GameObject> treasureChests = treasureManager.GetComponent<TreasureManager>().GetTreasureChests();
-        if (treasureChests.Count == 0)
+        GameObject[] treasureChests = GameObject.FindGameObjectsWithTag("TreasureChest");
+        if (AreAllTreasureChestsDigged(treasureChests) == true)
         {
             GameManager.Instance.EndGame("You Won");
             return signal;

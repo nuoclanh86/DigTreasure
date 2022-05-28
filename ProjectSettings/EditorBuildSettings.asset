@@ -13,5 +13,5 @@ EditorBuildSettings:
     guid: fc7e77f38c947e641b373fdd766fae0d
   - enabled: 1
     path: Assets/Scenes/GameOnline.unity
-    guid: d7445b788bf34c74eb941227dff2fa5b
+    guid: de711787eb04ba7489ade21a58a541e5
   m_configObjects: {}

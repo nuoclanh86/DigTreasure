@@ -474,6 +474,7 @@ MonoBehaviour:
   - {fileID: 4287399668354407580}
   - {fileID: 2224675157917357871}
   - {fileID: 3821874555443801953}
-  ingameUI: {fileID: 0}
-  player: {fileID: 0}
-  treasureManager: {fileID: 0}
+  ingameUI: {fileID: 4500172415700547348, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+  player: {fileID: 7886691535344992941, guid: 461c78e04f84fa94f87a988cb9df34a4, type: 3}
+  treasureChestObj: {fileID: 7129540199167166838, guid: c8d418ca00dc80741b9dc1edf5b19e92, type: 3}
+  radiusSpawnChest: 22
