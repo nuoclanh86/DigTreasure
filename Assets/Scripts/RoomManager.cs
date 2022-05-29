@@ -49,4 +49,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (playerOnline != null)
             virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerOnline.transform;
     }
+
+    IEnumerator LoadMainMenu()
+    {
+        Debug.Log("Loading MainMenu ... ");
+        PhotonNetwork.LeaveRoom();
+        while (PhotonNetwork.InRoom)
+            yield return null;
+        SceneManager.LoadScene(0);
+    }
+    public void LoadMainMenuScene()
+    {
+        StartCoroutine(LoadMainMenu());
+    }
 }
