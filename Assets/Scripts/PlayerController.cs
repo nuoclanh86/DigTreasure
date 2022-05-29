@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     GameObject character;
     protected Animator m_animator;
-    public enum PlayerState { Idle=0, Running, Walking, Digging };
+    public enum PlayerState { Idle = 0, Running, Walking, Digging };
     private PlayerState m_curPlayerState;
     private float m_moveSpeed = 1f;
 
@@ -66,49 +66,26 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-            m_groundedPlayer = m_controller.isGrounded;
+        m_groundedPlayer = m_controller.isGrounded;
         if (m_groundedPlayer && m_playerVelocity.y < 0)
         {
             m_playerVelocity.y = 0f;
         }
 
         Vector2 movement = m_playerInput.Player.Move.ReadValue<Vector2>();
-        Vector3 move = new Vector3(movement.x, 0, movement.y);
-        m_controller.Move(move * Time.deltaTime * m_moveSpeed * gameManager.gameSettings.cheatSpeed);
-
-        if (move != Vector3.zero)
+        if (movement != Vector2.zero)
         {
-            gameObject.transform.forward = move;
-            if (m_moveSpeed > gameManager.gameSettings.walkSpeed)
-                m_curPlayerState = PlayerState.Running;
-            else
-                m_curPlayerState = PlayerState.Walking;
-
+            PlayerMove(movement);
             m_diggingTimePressCountDown = -1f;
         }
         else if (m_curPlayerState == PlayerState.Idle || m_curPlayerState == PlayerState.Digging)
         {
-            bool digPress = m_playerInput.Player.ButtonD.triggered;
-            if (digPress)
-                m_diggingTimePressCountDown = 2f;
-
-            if (m_diggingTimePressCountDown > 0f)
-            {
-                m_diggingTimePressCountDown -= Time.deltaTime;
-                m_curPlayerState = PlayerState.Digging;
-            }
-            else
-                m_curPlayerState = PlayerState.Idle;
+            PlayerDigging();
         }
         else
             m_curPlayerState = PlayerState.Idle;
 
-        // bool jumpPress = playerInput.Player.Jump.IsPressed();
-        //bool jumpPress = playerInput.Player.Jump.triggered;
-        //if (jumpPress && groundedPlayer)
-        //{
-        //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        //}
+        //PlayerJump();
 
         m_playerVelocity.y += gravityValue * Time.deltaTime;
         m_controller.Move(m_playerVelocity * Time.deltaTime);
@@ -124,6 +101,42 @@ public class PlayerController : MonoBehaviour
             transform.position = warpPosition;
             warpPosition = Vector3.zero;
         }
+    }
+
+    void PlayerMove(Vector2 movementInput)
+    {
+        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
+        m_controller.Move(move * Time.deltaTime * m_moveSpeed * gameManager.gameSettings.cheatSpeed);
+        gameObject.transform.forward = move;
+        if (m_moveSpeed > gameManager.gameSettings.walkSpeed)
+            m_curPlayerState = PlayerState.Running;
+        else
+            m_curPlayerState = PlayerState.Walking;
+    }
+
+    //void PlayerJump()
+    //{
+    // bool jumpPress = playerInput.Player.Jump.IsPressed();
+    //bool jumpPress = playerInput.Player.Jump.triggered;
+    //if (jumpPress && groundedPlayer)
+    //{
+    //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+    //}
+    //}
+
+    void PlayerDigging()
+    {
+        bool digPress = m_playerInput.Player.ButtonD.triggered;
+        if (digPress)
+            m_diggingTimePressCountDown = 2f;
+
+        if (m_diggingTimePressCountDown > 0f)
+        {
+            m_diggingTimePressCountDown -= Time.deltaTime;
+            m_curPlayerState = PlayerState.Digging;
+        }
+        else
+            m_curPlayerState = PlayerState.Idle;
     }
 
     private void OnEnable()
