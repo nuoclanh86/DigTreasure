@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (m_masterClientResetGame == true)
         {
-            Debug.Log("m_masterClientResetGame : " + m_masterClientResetGame + " IsMasterClient: " + PhotonNetwork.IsMasterClient);
+            //Debug.Log("m_masterClientResetGame : " + m_masterClientResetGame + " IsMasterClient: " + PhotonNetwork.IsMasterClient);
             if (PhotonNetwork.InRoom && !PhotonNetwork.IsMasterClient && photonView.IsMine)
                 StartNewGame();
             m_masterClientResetGame = false;
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if ((PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient && photonView.IsMine))
         {
-            Debug.Log("update m_masterClientResetGame : " + true);
+            //Debug.Log("update m_masterClientResetGame : " + true);
             ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
             hash.Add("masterClientResetGame", true);
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
@@ -169,7 +169,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (changedProps["masterClientResetGame"] != null)
         {
             m_masterClientResetGame = (bool)changedProps["masterClientResetGame"];
-            Debug.Log("OnPlayerPropertiesUpdate masterClientResetGame : " + m_masterClientResetGame);
         }
     }
 }
