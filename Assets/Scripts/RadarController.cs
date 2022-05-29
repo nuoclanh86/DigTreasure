@@ -55,10 +55,13 @@ public class RadarController : MonoBehaviour
         GameObject[] treasureChests = GameObject.FindGameObjectsWithTag("TreasureChest");
         if (treasureChests.Length != 0 && AreAllTreasureChestsDigged(treasureChests) == true)
         {
-            if (photonView.IsMine)
-                gameManager.EndGame("You Won");
-            else
-                gameManager.EndGame("You Lose");
+            if (gameManager.CurGameState == GameManager.GameState.Ingame)
+            {
+                if (photonView.IsMine)
+                    gameManager.EndGame("You Won");
+                else
+                    gameManager.EndGame("You Lose");
+            }
             return signal;
         }
 

@@ -11,6 +11,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject ingameUI;
     public GameObject player;
 
+    public enum GameState { Ingame, EndGame };
+    GameState m_gameState = GameState.Ingame;
+
+    public GameState CurGameState
+    {
+        get { return m_gameState; }
+        set { m_gameState = value; }
+    }
+
     float m_timeleft = 0f;
 
     [Header("TreasureChest")]
@@ -77,6 +86,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log("EndGame ViewID : " + photonView.ViewID + " - resultGame: " + resultGame);
         if (!PhotonNetwork.InRoom || photonView.IsMine)
             ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
+        m_gameState = GameState.EndGame;
     }
 
     public void StartNewGame()
@@ -97,6 +107,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Debug.Log("ViewID : " + photonView.ViewID + " - IsMasterClient: " + PhotonNetwork.IsMasterClient + " - IsMine: " + photonView.IsMine);
         if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient && photonView.IsMine)
             SpawnTreasureChests();
+        m_gameState = GameState.Ingame;
     }
 
     public void LoadMainMenuScene()
