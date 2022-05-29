@@ -85,8 +85,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         Time.timeScale = 0.5f;
         Debug.Log("EndGame ViewID : " + photonView.ViewID + " - resultGame: " + resultGame);
         if (!PhotonNetwork.InRoom || photonView.IsMine)
+        {
             ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
+            StartCoroutine(DelayAction(2f));
+        }
         m_gameState = GameState.EndGame;
+    }
+
+    IEnumerator DelayAction(float delayTime)
+    {
+        //delete old chests
+        GameObject[] treasureChests = GameObject.FindGameObjectsWithTag("TreasureChest");
+        yield return new WaitForSeconds(delayTime);
+        DestroyOldTreasure(treasureChests);
     }
 
     public void StartNewGame()
@@ -123,11 +134,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    void SpawnTreasureChests()
+    void DestroyOldTreasure(GameObject[] treasureChests)
     {
-        GameObject[] treasureChests = GameObject.FindGameObjectsWithTag("TreasureChest");
-        //delete old chests
-
         if (treasureChests.Length != 0)
         {
             foreach (GameObject chest in treasureChests)
@@ -136,8 +144,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                     Destroy(chest);
             }
         }
+    }
 
-
+    void SpawnTreasureChests()
+    {
         //init new chests
         for (int i = 0; i < gameSettings.maxTreasureChest; i++)
         {
