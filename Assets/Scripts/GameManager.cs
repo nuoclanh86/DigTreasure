@@ -22,13 +22,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     bool m_masterClientResetGame = false;
 
-    public static GameManager Instance { get; private set; }
-    void Awake()
-    {
-        //singleton instance
-        Instance = this;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -80,8 +73,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void EndGame(string resultGame)
     {
-        Time.timeScale = 0.01f;
-        if (@PhotonNetwork.InRoom || photonView.IsMine)
+        Time.timeScale = 0.5f;
+        Debug.Log("EndGame ViewID : " + photonView.ViewID + " - resultGame: " + resultGame);
+        if (!PhotonNetwork.InRoom || photonView.IsMine)
             ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
     }
 

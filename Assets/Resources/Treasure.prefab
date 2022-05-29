@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3226426471089b4d8748ba6460c0169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSettings: {fileID: 11400000, guid: dd634d7229b2ee24c9854640d6bea816, type: 2}
+  photonView: {fileID: 3716828731348760575}
 --- !u!65 &1246687350792912701
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -101,7 +103,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &8870685813125805535
 GameObject:
   m_ObjectHideFlags: 0

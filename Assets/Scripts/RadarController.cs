@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class RadarController : MonoBehaviour
 {
     public GameObject player;
     public GameObject digButton;
+    public PhotonView photonView;
+    public GameManager gameManager;
 
     enum SignalStrength { None = 0, Level1_Weak, Level2_Medium, Level3_Strong };
     float m_delayEachScan = -1f;
@@ -22,14 +25,14 @@ public class RadarController : MonoBehaviour
     {
         if (m_delayEachScan <= 0f)
         {
-            m_delayEachScan = GameManager.Instance.gameSettings.delayEachScan;
+            m_delayEachScan = gameManager.gameSettings.delayEachScan;
             SignalStrength signal = RadarScan();
             UpdateRadarSignal(signal);
             //Debug.Log("signal: " + signal);
             if (signal < SignalStrength.Level2_Medium) // weak signal - run
-                player.GetComponent<PlayerController>().MoveSpeed = GameManager.Instance.gameSettings.runSpeed;
+                player.GetComponent<PlayerController>().MoveSpeed = gameManager.gameSettings.runSpeed;
             else // strong signal - walk
-                player.GetComponent<PlayerController>().MoveSpeed = GameManager.Instance.gameSettings.walkSpeed;
+                player.GetComponent<PlayerController>().MoveSpeed = gameManager.gameSettings.walkSpeed;
         }
         else
             m_delayEachScan -= Time.deltaTime;
@@ -52,9 +55,13 @@ public class RadarController : MonoBehaviour
         GameObject[] treasureChests = GameObject.FindGameObjectsWithTag("TreasureChest");
         if (treasureChests.Length != 0 && AreAllTreasureChestsDigged(treasureChests) == true)
         {
-            GameManager.Instance.EndGame("You Won");
+            if (photonView.IsMine)
+                gameManager.EndGame("You Won");
+            else
+                gameManager.EndGame("You Lose");
             return signal;
         }
+
         foreach (GameObject chest in treasureChests)
         {
             if (chest.GetComponent<TreasureChest>().IsDigged == false)
@@ -63,11 +70,11 @@ public class RadarController : MonoBehaviour
                 float distance = Vector3.Distance(posXZ, player.transform.position);
                 //Debug.Log("distance to treasure : " + distance);
 
-                if (distance < GameManager.Instance.gameSettings.signal_lvl_3_distance)
+                if (distance < gameManager.gameSettings.signal_lvl_3_distance)
                     return SignalStrength.Level3_Strong;
-                else if (distance < GameManager.Instance.gameSettings.signal_lvl_2_distance)
+                else if (distance < gameManager.gameSettings.signal_lvl_2_distance)
                     signal = SignalStrength.Level2_Medium;
-                else if (distance < GameManager.Instance.gameSettings.signal_lvl_1_distance)
+                else if (distance < gameManager.gameSettings.signal_lvl_1_distance)
                     signal = (SignalStrength)Mathf.Max((int)SignalStrength.Level1_Weak, (int)signal);
             }
         }

@@ -2014,6 +2014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1728587dda349bc47882f3699dd0adb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 2025642494529935212}
   gravityValue: -9.81
 --- !u!114 &1539560819297303012
 MonoBehaviour:
@@ -2862,6 +2863,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 8173944502678821197}
   digButton: {fileID: 5265117771057785674}
+  photonView: {fileID: 1539560819297303012}
+  gameManager: {fileID: 2025642494529935212}
 --- !u!4 &8931718693581573339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2462247863809421363, guid: 1090fdd9946acb244904f33051af8742, type: 3}

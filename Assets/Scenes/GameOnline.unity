@@ -901,6 +901,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1535187927}
   debugText: {fileID: 1442453298}
   testBtn: {fileID: 66082832}
+  gameSettings: {fileID: 11400000, guid: dd634d7229b2ee24c9854640d6bea816, type: 2}
 --- !u!4 &1584696702
 Transform:
   m_ObjectHideFlags: 0

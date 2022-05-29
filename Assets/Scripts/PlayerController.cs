@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameManager gameManager;
     //[SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
 
@@ -73,12 +74,12 @@ public class PlayerController : MonoBehaviour
 
         Vector2 movement = m_playerInput.Player.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movement.x, 0, movement.y);
-        m_controller.Move(move * Time.deltaTime * m_moveSpeed * GameManager.Instance.gameSettings.cheatSpeed);
+        m_controller.Move(move * Time.deltaTime * m_moveSpeed * gameManager.gameSettings.cheatSpeed);
 
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
-            if (m_moveSpeed > GameManager.Instance.gameSettings.walkSpeed)
+            if (m_moveSpeed > gameManager.gameSettings.walkSpeed)
                 m_curPlayerState = PlayerState.Running;
             else
                 m_curPlayerState = PlayerState.Walking;

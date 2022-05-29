@@ -11,6 +11,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject virtualCamera;
     public TextMeshProUGUI debugText;
     public GameObject testBtn;
+    public GlobalGameSettings gameSettings;
 
     public static RoomManager Instance;
     void Awake()
@@ -93,9 +94,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void CheatBtn()
     {
-        if (GameManager.Instance.gameSettings.cheatSpeed == 1)
-            GameManager.Instance.gameSettings.cheatSpeed = 2;
+        if (gameSettings.cheatSpeed == 1)
+            gameSettings.cheatSpeed = 2;
         else
-            GameManager.Instance.gameSettings.cheatSpeed = 1;
+            gameSettings.cheatSpeed = 1;
     }
 }
