@@ -23,4 +23,7 @@ public class GlobalGameSettings : ScriptableObject
     [Header("Player")]
     public float runSpeed = 3.0f;
     public float walkSpeed = 1.0f;
+
+    [Header("Cheat")]
+    public float cheatSpeed = 2.0f;
 }

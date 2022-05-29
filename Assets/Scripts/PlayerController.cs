@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         Vector2 movement = m_playerInput.Player.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movement.x, 0, movement.y);
-        m_controller.Move(move * Time.deltaTime * m_moveSpeed);
+        m_controller.Move(move * Time.deltaTime * m_moveSpeed * GameManager.Instance.gameSettings.cheatSpeed);
 
         if (move != Vector3.zero)
         {

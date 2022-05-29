@@ -45,7 +45,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 if (chest.GetComponent<TreasureChest>().IsDigged == true)
                     countChestsDigged++;
             }
-            debugLog += "Chests: " + countChestsDigged + "/" + chests.Length;
+            debugLog += "\nChests: " + countChestsDigged + "/" + chests.Length;
             debugText.text = debugLog;
         }
     }
@@ -89,5 +89,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Debug.Log(" ======================== OnLeftRoom ======================== ");
         base.OnLeftRoom();
         SceneManager.LoadScene(0);
+    }
+
+    public void CheatBtn()
+    {
+        if (GameManager.Instance.gameSettings.cheatSpeed == 1)
+            GameManager.Instance.gameSettings.cheatSpeed = 2;
+        else
+            GameManager.Instance.gameSettings.cheatSpeed = 1;
     }
 }

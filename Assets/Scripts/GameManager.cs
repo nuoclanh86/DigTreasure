@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         spawnPointCoordinates = GameObject.FindGameObjectWithTag("SpawnPointCoordinates");
         if (spawnPointCoordinates == null) Debug.LogError("Could not found SpawnPointCoordinates");
+        if (PhotonNetwork.InRoom)
+            player.name = "Player" + photonView.ViewID;
         m_timeleft = gameSettings.timePerMatch;
         StartNewGame();
     }
