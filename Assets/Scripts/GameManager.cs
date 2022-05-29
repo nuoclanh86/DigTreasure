@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (m_masterClientResetGame == true)
         {
-            //Debug.Log("m_masterClientResetGame : " + m_masterClientResetGame + " IsMasterClient: " + PhotonNetwork.IsMasterClient);
+            //Debug.Log("ViewID : " + photonView.ViewID + " - IsMasterClient: " + PhotonNetwork.IsMasterClient + " - IsMine: " + photonView.IsMine);
             if (PhotonNetwork.InRoom && !PhotonNetwork.IsMasterClient && photonView.IsMine)
                 StartNewGame();
             m_masterClientResetGame = false;
@@ -81,11 +81,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void EndGame(string resultGame)
     {
         Time.timeScale = 0.01f;
-        ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
+        if (@PhotonNetwork.InRoom || photonView.IsMine)
+            ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
     }
 
     public void StartNewGame()
     {
+        Debug.Log("StartNewGame - ViewID: " + photonView.ViewID);
         if ((PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient && photonView.IsMine))
         {
             //Debug.Log("update m_masterClientResetGame : " + true);
@@ -98,7 +100,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         m_timeleft = gameSettings.timePerMatch;
         ingameUI.GetComponent<IngameUI>().ResetGameUI();
         player.GetComponent<PlayerController>().RandomPlayerPosition();
-        SpawnTreasureChests();
+        //Debug.Log("ViewID : " + photonView.ViewID + " - IsMasterClient: " + PhotonNetwork.IsMasterClient + " - IsMine: " + photonView.IsMine);
+        if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient && photonView.IsMine)
+            SpawnTreasureChests();
     }
 
     public void LoadMainMenuScene()
@@ -118,6 +122,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject[] treasureChests = GameObject.FindGameObjectsWithTag("TreasureChest");
         //delete old chests
+
         if (treasureChests.Length != 0)
         {
             foreach (GameObject chest in treasureChests)
@@ -126,6 +131,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     Destroy(chest);
             }
         }
+
 
         //init new chests
         for (int i = 0; i < gameSettings.maxTreasureChest; i++)
@@ -143,12 +149,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
+                    Debug.Log(" PhotonNetwork.Instantiate Treasure");
                     treasureChest = PhotonNetwork.Instantiate("Treasure", Vector3.up, Quaternion.identity);
                     treasureChest.transform.position = pos;
                 }
             }
             else
             {
+                Debug.Log("Instantiate Treasure");
                 treasureChest = Instantiate(Resources.Load("Treasure"), Vector3.up, Quaternion.identity) as GameObject;
                 treasureChest.transform.position = pos;
             }

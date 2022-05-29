@@ -29,16 +29,19 @@ public class IngameUI : MonoBehaviour
 
     public void ShowEndGameUI(string resultGame)
     {
-        Debug.Log("ShowEndGameUI");
-        virtualController.gameObject.SetActive(false);
-        endScreen.gameObject.SetActive(true);
-        endScreenResult.text = resultGame;
-        Debug.Log("PhotonView.ID: " + photonView.ViewID);
-        Debug.Log("IsMasterClient: " + PhotonNetwork.IsMasterClient + " - photonView.IsMine: " + photonView.IsMine);
-        if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient && photonView.IsMine)
-            playAgainBtn.gameObject.SetActive(true);
-        else
-            playAgainBtn.gameObject.SetActive(false);
+        if (!PhotonNetwork.InRoom || photonView.IsMine)
+        {
+            Debug.Log("ShowEndGameUI");
+            virtualController.gameObject.SetActive(false);
+            endScreen.gameObject.SetActive(true);
+            endScreenResult.text = resultGame;
+            //Debug.Log("PhotonView.ID: " + photonView.ViewID);
+            //Debug.Log("IsMasterClient: " + PhotonNetwork.IsMasterClient + " - photonView.IsMine: " + photonView.IsMine);
+            if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient)
+                playAgainBtn.gameObject.SetActive(true);
+            else
+                playAgainBtn.gameObject.SetActive(false);
+        }
     }
 
     public void ResetGameUI()
