@@ -26,9 +26,13 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartSinglePlayerGame()
     {
-        if (PhotonNetwork.IsConnected)
-            PhotonNetwork.Disconnect();
         SceneManager.LoadScene(1);
+    }
+
+    public void FindMatch()
+    {
+        Debug.Log("Finding Room ... ");
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public void ShowMultiplayerBtn(bool val)

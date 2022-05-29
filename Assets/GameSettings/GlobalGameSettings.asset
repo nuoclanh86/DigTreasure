@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eda55ed33b8c614b8af5cf869e04a0a, type: 3}
   m_Name: GlobalGameSettings
   m_EditorClassIdentifier: 
-  timePerMatch: 4
+  timePerMatch: 5
   signal_lvl_1_distance: 20
   signal_lvl_2_distance: 7
   signal_lvl_3_distance: 1.5
@@ -22,3 +22,4 @@ MonoBehaviour:
   radiusSpawnChest: 20
   runSpeed: 3
   walkSpeed: 1
+  cheatSpeed: 2

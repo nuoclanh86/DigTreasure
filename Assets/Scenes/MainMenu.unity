@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 7724023}
   m_Layer: 0
   m_Name: NetworkingManager
-  m_TagString: Untagged
+  m_TagString: NetworkingManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1338,8 +1338,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7724023}
-        m_TargetAssemblyTypeName: NetworkingManager, Assembly-CSharp
+      - m_Target: {fileID: 300352760}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
         m_MethodName: FindMatch
         m_Mode: 1
         m_Arguments:

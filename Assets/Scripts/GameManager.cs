@@ -125,8 +125,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.InRoom)
         {
-            GameObject roomManager = GameObject.FindGameObjectWithTag("RoomManager");
-            roomManager.GetComponent<RoomManager>().LoadMainMenuScene();
+            PhotonNetwork.LeaveRoom();
         }
         else
         {

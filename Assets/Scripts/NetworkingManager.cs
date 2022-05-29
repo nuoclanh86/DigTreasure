@@ -7,6 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class NetworkingManager : MonoBehaviourPunCallbacks
 {
+    public static NetworkingManager Instance;
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        DontDestroyOnLoad(Instance);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,13 +52,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             mainmenu.GetComponent<MainMenuManager>().ShowMultiplayerBtn(true);
         }
     }
-
-    public void FindMatch()
-    {
-        Debug.Log("Finding Room ... ");
-        PhotonNetwork.JoinRandomRoom();
-    }
-
+ 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         MakeNewRoom();
@@ -86,5 +94,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         Debug.Log(" ======================== OnLeftRoom ======================== ");
         base.OnLeftRoom();
+        SceneManager.LoadScene(0);
     }
 }

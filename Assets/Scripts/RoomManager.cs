@@ -16,13 +16,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public static RoomManager Instance;
     void Awake()
     {
-        if (Instance)
+        if (Instance != null && Instance != this)
         {
-            Destroy(Instance);
-            return;
+            Destroy(gameObject);
         }
-        Instance = this;
-        DontDestroyOnLoad(Instance);
+        else
+        {
+            Instance = this;
+        }
     }
 
     // Start is called before the first frame update
@@ -74,22 +75,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void LoadMainMenuScene()
     {
         Debug.Log("LoadMainMenuScene");
-        if(PhotonNetwork.InRoom)
-        PhotonNetwork.LeaveRoom();
-        //StartCoroutine(LoadMainMenu());
-    }
-
-    public override void OnLeftLobby()
-    {
-        Debug.Log(" ======================== OnLeftLobby ======================== ");
-        base.OnLeftLobby();
-    }
-
-    public override void OnLeftRoom()
-    {
-        Debug.Log(" ======================== OnLeftRoom ======================== ");
-        base.OnLeftRoom();
-        SceneManager.LoadScene(0);
+        if (PhotonNetwork.InRoom)
+            PhotonNetwork.LeaveRoom();
     }
 
     public void CheatBtn()
