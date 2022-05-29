@@ -659,8 +659,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualController: {fileID: 6081050025491581732}
   endScreen: {fileID: 5895892617255846661}
+  playAgainBtn: {fileID: 0}
   timeleftText: {fileID: 1105260639}
   endScreenResult: {fileID: 8467813686412208727}
+  photonView: {fileID: 0}
 --- !u!1 &5710715512107257599
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1218100327535435976
 RectTransform:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        if (!PhotonNetwork.IsConnected)
+        if (!PhotonNetwork.InLobby)
         {
             connecting.SetActive(true);
             multiplayerBtn.SetActive(false);
