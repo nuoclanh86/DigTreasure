@@ -7,6 +7,7 @@ public class TreasureChest : MonoBehaviour
 {
     public GlobalGameSettings gameSettings;
     public PhotonView photonView;
+    public GameObject CheatShowPosition;
     GameObject player;
     Vector3 m_positionPlayerDiggingXZ;
 
@@ -32,6 +33,7 @@ public class TreasureChest : MonoBehaviour
             && this.transform.position.y <= player.transform.position.y)
         {
             this.transform.position += Vector3.up * Time.deltaTime * gameSettings.digSpeed;
+            CheatShowPosition.SetActive(false);
         }
         else if (this.transform.position.y >= player.transform.position.y)
         {
