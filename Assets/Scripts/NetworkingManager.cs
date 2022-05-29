@@ -7,24 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class NetworkingManager : MonoBehaviourPunCallbacks
 {
-    public GameObject connecting;
-    public GameObject multiplayerBtn;
-
     // Start is called before the first frame update
     void Start()
     {
         if (!PhotonNetwork.IsConnected)
         {
-            connecting.SetActive(true);
-            multiplayerBtn.SetActive(false);
             Debug.Log("Connecting to Server ... ");
             PhotonNetwork.ConnectUsingSettings();
-        }
-        else
-        {
-            Debug.Log("Connected to Server ... ");
-            connecting.SetActive(false);
-            multiplayerBtn.SetActive(true);
         }
     }
 
@@ -43,9 +32,13 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("Ready for Multiplayer");
-        connecting.SetActive(false);
-        multiplayerBtn.SetActive(true);
+        GameObject mainmenu = GameObject.FindGameObjectWithTag("MainMenuManager");
+        if (mainmenu != null)
+        {
+            mainmenu.GetComponent<MainMenuManager>().ShowMultiplayerBtn(true);
+        }
     }
+
     public void FindMatch()
     {
         Debug.Log("Finding Room ... ");
@@ -75,5 +68,23 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined Room. Loading scene ... ");
         PhotonNetwork.LoadLevel(2);
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log(" ======================== OnDisconnected ======================== ");
+        base.OnDisconnected(cause);
+    }
+
+    public override void OnLeftLobby()
+    {
+        Debug.Log(" ======================== OnLeftLobby ======================== ");
+        base.OnLeftLobby();
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log(" ======================== OnLeftRoom ======================== ");
+        base.OnLeftRoom();
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - SpawnPoint
   - SpawnPointCoordinates
   - RoomManager
+  - MainMenuManager
   layers:
   - Default
   - TransparentFX

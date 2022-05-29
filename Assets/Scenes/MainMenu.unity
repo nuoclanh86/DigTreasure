@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 300352762}
   m_Layer: 0
   m_Name: MainMenuManager
-  m_TagString: Untagged
+  m_TagString: MainMenuManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -544,6 +544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70c1387523ae3c49902503398af0d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connecting: {fileID: 106938031}
+  multiplayerBtn: {fileID: 1114891121}
 --- !u!4 &300352761
 Transform:
   m_ObjectHideFlags: 0
@@ -571,8 +573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e0af62b20718934f9d886059269e437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connecting: {fileID: 106938031}
-  multiplayerBtn: {fileID: 1114891121}
 --- !u!1 &366684392
 GameObject:
   m_ObjectHideFlags: 0

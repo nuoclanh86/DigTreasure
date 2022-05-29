@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,35 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public GameObject connecting;
+    public GameObject multiplayerBtn;
+
+    private void Start()
+    {
+        if (!PhotonNetwork.IsConnected)
+        {
+            connecting.SetActive(true);
+            multiplayerBtn.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Connected to Server");
+            connecting.SetActive(false);
+            multiplayerBtn.SetActive(true);
+        }
+    }
+
     public void StartSinglePlayerGame()
     {
+        if (PhotonNetwork.IsConnected)
+            PhotonNetwork.Disconnect();
         SceneManager.LoadScene(1);
+    }
+
+    public void ShowMultiplayerBtn(bool val)
+    {
+        connecting.SetActive(val==false);
+        multiplayerBtn.SetActive(val==true);
     }
 
     public void ExitGame()
