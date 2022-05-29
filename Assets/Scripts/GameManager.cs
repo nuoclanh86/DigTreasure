@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     //[Header("Photon PUN")]
     //public PhotonView photonView;
 
+    bool m_masterClientResetGame = false;
+
     public static GameManager Instance { get; private set; }
     void Awake()
     {
@@ -55,6 +57,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+
+        if (m_masterClientResetGame == true)
+        {
+            Debug.Log("m_masterClientResetGame : " + m_masterClientResetGame + " IsMasterClient: " + PhotonNetwork.IsMasterClient);
+            if (PhotonNetwork.InRoom && !PhotonNetwork.IsMasterClient && photonView.IsMine)
+                StartNewGame();
+            m_masterClientResetGame = false;
+        }
     }
 
     private void DisplayTimeleft(float timeleft)
@@ -68,12 +78,20 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void EndGame(string resultGame)
     {
-        Time.timeScale = 0;
+        Time.timeScale = 0.01f;
         ingameUI.GetComponent<IngameUI>().ShowEndGameUI(resultGame);
     }
 
     public void StartNewGame()
     {
+        if ((PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient && photonView.IsMine))
+        {
+            Debug.Log("update m_masterClientResetGame : " + true);
+            ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+            hash.Add("masterClientResetGame", true);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+
         Time.timeScale = 1;
         m_timeleft = gameSettings.timePerMatch;
         ingameUI.GetComponent<IngameUI>().ResetGameUI();
@@ -146,6 +164,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             float curTimeleft = (float)changedProps["curTimeleft"];
             DisplayTimeleft(curTimeleft);
+        }
+
+        if (changedProps["masterClientResetGame"] != null)
+        {
+            m_masterClientResetGame = (bool)changedProps["masterClientResetGame"];
+            Debug.Log("OnPlayerPropertiesUpdate masterClientResetGame : " + m_masterClientResetGame);
         }
     }
 }
