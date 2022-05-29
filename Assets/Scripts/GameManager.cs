@@ -139,14 +139,17 @@ public class GameManager : MonoBehaviourPunCallbacks
             GameObject treasureChest;
             if (PhotonNetwork.InRoom)
             {
-                treasureChest = PhotonNetwork.Instantiate("Treasure", Vector3.up, Quaternion.identity);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    treasureChest = PhotonNetwork.Instantiate("Treasure", Vector3.up, Quaternion.identity);
+                    treasureChest.transform.position = pos;
+                }
             }
             else
             {
                 treasureChest = Instantiate(Resources.Load("Treasure"), Vector3.up, Quaternion.identity) as GameObject;
+                treasureChest.transform.position = pos;
             }
-            //GameObject treasureChest = Instantiate(treasureChestObj);
-            treasureChest.transform.position = pos;
         }
     }
 

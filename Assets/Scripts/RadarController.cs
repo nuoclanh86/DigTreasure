@@ -38,7 +38,6 @@ public class RadarController : MonoBehaviour
     bool AreAllTreasureChestsDigged(GameObject[] treasureChests)
     {
         bool result = true;
-        if (treasureChests.Length != 0)
             foreach (GameObject chest in treasureChests)
             {
                 if (chest.GetComponent<TreasureChest>().IsDigged == false)
@@ -51,7 +50,7 @@ public class RadarController : MonoBehaviour
     {
         SignalStrength signal = SignalStrength.None;
         GameObject[] treasureChests = GameObject.FindGameObjectsWithTag("TreasureChest");
-        if (AreAllTreasureChestsDigged(treasureChests) == true)
+        if (treasureChests.Length != 0 && AreAllTreasureChestsDigged(treasureChests) == true)
         {
             GameManager.Instance.EndGame("You Won");
             return signal;

@@ -4,10 +4,13 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using TMPro;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public GameObject virtualCamera;
+    public TextMeshProUGUI debugText;
+    public GameObject testBtn;
 
     public static RoomManager Instance;
     void Awake()
@@ -27,6 +30,26 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     }
 
+    private void Update()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            GameObject[] chests = GameObject.FindGameObjectsWithTag("TreasureChest");
+            string debugLog = "";
+            foreach (GameObject player in players)
+                debugLog += player.name + "\n";
+            int countChestsDigged = 0;
+            foreach (GameObject chest in chests)
+            {
+                if (chest.GetComponent<TreasureChest>().IsDigged == true)
+                    countChestsDigged++;
+            }
+            debugLog += "Chests: " + countChestsDigged + "/" + chests.Length;
+            debugText.text = debugLog;
+        }
+    }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -42,24 +65,29 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Debug.Log("OnSceneLoaded");
         if (PhotonNetwork.InRoom)
         {
-            PhotonNetwork.Instantiate("Player", Vector3.up * 6, Quaternion.identity);
-        }
-
-        GameObject playerOnline = GameObject.FindGameObjectWithTag("Player");
-        if (playerOnline != null)
+            GameObject playerOnline = PhotonNetwork.Instantiate("Player", Vector3.up * 6, Quaternion.identity);
             virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerOnline.transform;
+        }
     }
 
-    IEnumerator LoadMainMenu()
-    {
-        Debug.Log("Loading MainMenu ... ");
-        PhotonNetwork.LeaveRoom();
-        while (PhotonNetwork.InRoom)
-            yield return null;
-        SceneManager.LoadScene(0);
-    }
     public void LoadMainMenuScene()
     {
-        StartCoroutine(LoadMainMenu());
+        Debug.Log("LoadMainMenuScene");
+        if(PhotonNetwork.InRoom)
+        PhotonNetwork.LeaveRoom();
+        //StartCoroutine(LoadMainMenu());
+    }
+
+    public override void OnLeftLobby()
+    {
+        Debug.Log(" ======================== OnLeftLobby ======================== ");
+        base.OnLeftLobby();
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log(" ======================== OnLeftRoom ======================== ");
+        base.OnLeftRoom();
+        SceneManager.LoadScene(0);
     }
 }
