@@ -83,8 +83,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void LoadMainMenuScene()
     {
-        GameObject roomManager = GameObject.FindGameObjectWithTag("RoomManager");
-        roomManager.GetComponent<RoomManager>().LoadMainMenuScene();
+        if (PhotonNetwork.InRoom)
+        {
+            GameObject roomManager = GameObject.FindGameObjectWithTag("RoomManager");
+            roomManager.GetComponent<RoomManager>().LoadMainMenuScene();
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     void SpawnTreasureChests()
