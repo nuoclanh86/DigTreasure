@@ -57,7 +57,7 @@ public class RadarController : MonoBehaviour
         {
             if (gameManager.CurGameState == GameManager.GameState.Ingame)
             {
-                if (photonView.IsMine && player.name == RoomManager.Instance.HighestPlayerDigged())
+                if (!PhotonNetwork.InRoom || photonView.IsMine && player.name == RoomManager.Instance.HighestPlayerDigged())
                     gameManager.EndGame("You Won");
                 else
                     gameManager.EndGame("You Lose");

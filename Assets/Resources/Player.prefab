@@ -2016,6 +2016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 2025642494529935212}
   gravityValue: -9.81
+  photonView: {fileID: 1539560819297303012}
 --- !u!114 &1539560819297303012
 MonoBehaviour:
   m_ObjectHideFlags: 0

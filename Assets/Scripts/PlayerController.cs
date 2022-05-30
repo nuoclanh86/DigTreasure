@@ -23,13 +23,12 @@ public class PlayerController : MonoBehaviour
     float m_diggingTimePressCountDown = 0f;
     Vector3 warpPosition = Vector3.zero;
 
-    PhotonView photonView;
+    public PhotonView photonView;
     int m_NumberTreasureDigged = 0;
 
     private void Awake()
     {
         m_controller = GetComponent<CharacterController>();
-        photonView = GetComponent<PhotonView>();
         m_playerInput = new PlayerActionsManager();
 
         foreach (Transform child in this.transform)

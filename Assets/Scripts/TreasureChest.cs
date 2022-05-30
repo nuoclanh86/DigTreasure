@@ -18,7 +18,16 @@ public class TreasureChest : MonoBehaviour
     {
         m_positionPlayerDiggingXZ = Vector3.zero;
         m_isDigged = false;
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject p in players)
+        {
+            if (!PhotonNetwork.InRoom || p.GetComponent<PlayerController>().photonView.IsMine)
+            {
+                player = p;
+                break;
+            }
+        }
+        if (player == null) Debug.LogError("player==null");
         TreasureChestOpened(false);
     }
 
@@ -38,8 +47,6 @@ public class TreasureChest : MonoBehaviour
         else if (m_isDigged == false && this.transform.position.y >= player.transform.position.y)
         {
             TreasureChestOpened(true);
-            Debug.Log("TreasureChestOpened by : " + player.name);
-            player.GetComponent<PlayerController>().NumberTreasureDigged++;
         }
     }
 
@@ -62,6 +69,11 @@ public class TreasureChest : MonoBehaviour
     {
         if (!PhotonNetwork.InRoom || viewID == photonView.ViewID)
         {
+            if (val == true && (!PhotonNetwork.InRoom || photonView.IsMine))
+            {
+                Debug.Log("TreasureChestOpened by : " + player.name);
+                player.GetComponent<PlayerController>().NumberTreasureDigged++;
+            }
             foreach (Transform child in this.transform)
             {
                 m_isDigged = val;
