@@ -13,7 +13,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject testBtn;
     public GlobalGameSettings gameSettings;
 
-    public static RoomManager Instance;
+    bool m_isCheated;
+
+    public static RoomManager Instance { get; private set; }
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,7 +31,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-
+        m_isCheated = false;
     }
 
     private void Update()
@@ -54,7 +56,24 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 countChestsDigged++;
         }
         debugLog += "\nChests: " + countChestsDigged + "/" + chests.Length;
+        debugLog += "\nCheat: " + m_isCheated;
         debugText.text = debugLog;
+
+        //cheat
+        if (m_isCheated)
+        {
+            gameSettings.cheatSpeed = 2;
+        }
+        else
+        {
+            gameSettings.cheatSpeed = 1;
+        }
+    }
+
+    public bool IsCheated
+    {
+        get { return m_isCheated; }
+        set { m_isCheated = value; }
     }
 
     private void OnEnable()
@@ -86,10 +105,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void CheatBtn()
     {
-        if (gameSettings.cheatSpeed == 1)
-            gameSettings.cheatSpeed = 2;
-        else
-            gameSettings.cheatSpeed = 1;
+        Debug.Log("CheatBtn: " + m_isCheated);
+        m_isCheated = !m_isCheated;
     }
 
     public string HighestPlayerDigged()

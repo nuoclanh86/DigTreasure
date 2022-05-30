@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject ingameUI;
     public GameObject player;
 
-    public bool isCheated = false;
-
     public enum GameState { Ingame, EndGame };
     GameState m_gameState = GameState.Ingame;
 

@@ -48,6 +48,11 @@ public class TreasureChest : MonoBehaviour
         {
             TreasureChestOpened(true);
         }
+
+        if(m_isDigged==false && PhotonNetwork.InRoom)
+        {
+            CheatShowPosition.SetActive(RoomManager.Instance.IsCheated);
+        }
     }
 
     public bool IsDigged
