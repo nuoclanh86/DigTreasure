@@ -36,20 +36,25 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.InRoom)
         {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            GameObject[] chests = GameObject.FindGameObjectsWithTag("TreasureChest");
-            string debugLog = "";
-            foreach (GameObject player in players)
-                debugLog += player.name + " - " + player.GetComponent<PlayerController>().NumberTreasureDigged + "\n";
-            int countChestsDigged = 0;
-            foreach (GameObject chest in chests)
-            {
-                if (chest.GetComponent<TreasureChest>().IsDigged == true)
-                    countChestsDigged++;
-            }
-            debugLog += "\nChests: " + countChestsDigged + "/" + chests.Length;
-            debugText.text = debugLog;
+            ShowDebugLog();
         }
+    }
+
+    void ShowDebugLog()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] chests = GameObject.FindGameObjectsWithTag("TreasureChest");
+        string debugLog = "";
+        foreach (GameObject player in players)
+            debugLog += player.name + " - " + player.GetComponent<PlayerController>().NumberTreasureDigged + "\n";
+        int countChestsDigged = 0;
+        foreach (GameObject chest in chests)
+        {
+            if (chest.GetComponent<TreasureChest>().IsDigged == true)
+                countChestsDigged++;
+        }
+        debugLog += "\nChests: " + countChestsDigged + "/" + chests.Length;
+        debugText.text = debugLog;
     }
 
     private void OnEnable()
