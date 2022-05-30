@@ -35,6 +35,21 @@ public class MainMenuManager : MonoBehaviour
         PhotonNetwork.JoinRandomRoom();
     }
 
+    public void CreateRoom()
+    {
+        NetworkingManager.Instance.MakeNewRoom();
+    }
+
+    public void JoinSelectedRoom(string roomName)
+    {
+        Debug.Log("Join Room : " + roomName);
+        PhotonNetwork.JoinRoom(roomName);
+    }
+    public void ShowRoomList()
+    {
+        Debug.Log("ShowRoomList");
+    }
+
     public void ShowMultiplayerBtn(bool val)
     {
         connecting.SetActive(val==false);

@@ -58,7 +58,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         MakeNewRoom();
     }
 
-    void MakeNewRoom()
+    public void MakeNewRoom()
     {
         int randomRoomName = Random.Range(0, 9999);
         RoomOptions roomOptions = new RoomOptions()
