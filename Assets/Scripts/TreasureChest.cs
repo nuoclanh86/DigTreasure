@@ -35,9 +35,11 @@ public class TreasureChest : MonoBehaviour
             this.transform.position += Vector3.up * Time.deltaTime * gameSettings.digSpeed;
             CheatShowPosition.SetActive(false);
         }
-        else if (this.transform.position.y >= player.transform.position.y)
+        else if (m_isDigged == false && this.transform.position.y >= player.transform.position.y)
         {
             TreasureChestOpened(true);
+            Debug.Log("TreasureChestOpened by : " + player.name);
+            player.GetComponent<PlayerController>().NumberTreasureDigged++;
         }
     }
 

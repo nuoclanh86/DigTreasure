@@ -40,7 +40,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             GameObject[] chests = GameObject.FindGameObjectsWithTag("TreasureChest");
             string debugLog = "";
             foreach (GameObject player in players)
-                debugLog += player.name + "\n";
+                debugLog += player.name + " - " + player.GetComponent<PlayerController>().NumberTreasureDigged + "\n";
             int countChestsDigged = 0;
             foreach (GameObject chest in chests)
             {
@@ -85,5 +85,21 @@ public class RoomManager : MonoBehaviourPunCallbacks
             gameSettings.cheatSpeed = 2;
         else
             gameSettings.cheatSpeed = 1;
+    }
+
+    public string HighestPlayerDigged()
+    {
+        string result = "playerNull";
+        int highestPoint = 0;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<PlayerController>().NumberTreasureDigged >= highestPoint)
+            {
+                highestPoint = player.GetComponent<PlayerController>().NumberTreasureDigged;
+                result = player.name;
+            }
+        }
+        return result;
     }
 }

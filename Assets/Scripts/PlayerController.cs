@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     Vector3 warpPosition = Vector3.zero;
 
     PhotonView photonView;
+    int m_NumberTreasureDigged = 0;
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         RandomPlayerPosition();
+        m_NumberTreasureDigged = 0;
     }
 
     public float MoveSpeed
@@ -137,6 +139,12 @@ public class PlayerController : MonoBehaviour
         }
         else
             m_curPlayerState = PlayerState.Idle;
+    }
+
+    public int NumberTreasureDigged
+    {
+        get { return m_NumberTreasureDigged; }
+        set { m_NumberTreasureDigged = value; }
     }
 
     private void OnEnable()
