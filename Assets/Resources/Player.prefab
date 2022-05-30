@@ -2630,6 +2630,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2025642494529935212}
+    - target: {fileID: 2651581386979861078, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: 97690656
+      objectReference: {fileID: 0}
     - target: {fileID: 3590878466180222176, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
       propertyPath: photonView
       value: 
@@ -2730,6 +2734,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8045397994678639468, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045397994678639468, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7b4d635d5ebc2a4c967aed03f5c932c, type: 3}
+    - target: {fileID: 9126842337608515202, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126842337608515202, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 779b95c4bc6a9534299af022ce6c4d5c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2e17992b6e671542a20f1daf5e3345b, type: 3}
 --- !u!1 &3407493107572158121 stripped
