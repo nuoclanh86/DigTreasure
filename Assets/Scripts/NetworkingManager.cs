@@ -21,22 +21,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(Instance);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (!PhotonNetwork.IsConnected)
-        {
-            Debug.Log("Connecting to Server ... ");
-            PhotonNetwork.ConnectUsingSettings();
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void OnConnectedToMaster()
     {
         Debug.Log("Joining Lobby ... ");
@@ -49,7 +33,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         GameObject mainmenu = GameObject.FindGameObjectWithTag("MainMenuManager");
         if (mainmenu != null)
         {
-            mainmenu.GetComponent<MainMenuManager>().ShowMultiplayerBtn(true);
+            mainmenu.GetComponent<MainMenuManager>().ShowJoinRoomPanel(true);
         }
     }
  

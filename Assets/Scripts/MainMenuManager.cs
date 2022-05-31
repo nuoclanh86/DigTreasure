@@ -9,19 +9,25 @@ public class MainMenuManager : MonoBehaviour
     public GameObject connecting;
     public GameObject multiplayerBtn;
 
+    public PanelAnimator panel01, panel02;
+
     private void Start()
     {
         if (!PhotonNetwork.InLobby)
         {
-            connecting.SetActive(true);
-            multiplayerBtn.SetActive(false);
+            ShowMultiplayerBtn(true);
         }
         else
         {
             Debug.Log("Connected to Server");
-            connecting.SetActive(false);
-            multiplayerBtn.SetActive(true);
+            ShowMultiplayerBtn(false);
         }
+    }
+
+    public void ShowMultiplayerBtn(bool val)
+    {
+        connecting.SetActive(val == false);
+        multiplayerBtn.SetActive(val == true);
     }
 
     public void StartSinglePlayerGame()
@@ -29,7 +35,36 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void FindMatch()
+    public void ConnectServer()
+    {
+        if (!PhotonNetwork.IsConnected)
+        {
+            Debug.Log("Connecting to Server ... ");
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        else
+        {
+            Debug.Log("Already Connected to Server");
+        }
+        ShowMultiplayerBtn(false);
+    }
+
+    public void ShowJoinRoomPanel(bool val)
+    {
+        Debug.Log("ShowJoinRoomPanel: " + val);
+        if (val == true)
+        {
+            panel01.StartAnimOut();
+            panel02.StartAnimIn();
+        }
+        else
+        {
+            panel01.StartAnimIn();
+            panel02.StartAnimOut();
+        }
+    }
+
+    public void JoinRandomRoom()
     {
         Debug.Log("Finding Room ... ");
         PhotonNetwork.JoinRandomRoom();
@@ -48,12 +83,6 @@ public class MainMenuManager : MonoBehaviour
     public void ShowRoomList()
     {
         Debug.Log("ShowRoomList");
-    }
-
-    public void ShowMultiplayerBtn(bool val)
-    {
-        connecting.SetActive(val==false);
-        multiplayerBtn.SetActive(val==true);
     }
 
     public void ExitGame()
