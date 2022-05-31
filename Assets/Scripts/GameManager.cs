@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Time.timeScale = 1;
         m_timeleft = gameSettings.timePerMatch;
         ingameUI.GetComponent<IngameUI>().ResetGameUI();
-        player.GetComponent<PlayerController>().RandomPlayerPosition();
+        player.GetComponent<PlayerDisplay>().RandomPlayerPosition();
         player.GetComponent<PlayerController>().NumberTreasureDigged = 0;
         //Debug.Log("ViewID : " + photonView.ViewID + " - IsMasterClient: " + PhotonNetwork.IsMasterClient + " - IsMine: " + photonView.IsMine);
         if (!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient && photonView.IsMine)

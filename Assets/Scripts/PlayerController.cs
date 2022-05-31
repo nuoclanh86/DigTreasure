@@ -14,14 +14,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 m_playerVelocity;
     private bool m_groundedPlayer;
 
-    GameObject character;
-    protected Animator m_animator;
     public enum PlayerState { Idle = 0, Running, Walking, Digging };
     private PlayerState m_curPlayerState;
     private float m_moveSpeed = 1f;
 
     float m_diggingTimePressCountDown = 0f;
-    Vector3 warpPosition = Vector3.zero;
 
     public PhotonView photonView;
     int m_NumberTreasureDigged = 0;
@@ -30,24 +27,11 @@ public class PlayerController : MonoBehaviour
     {
         m_controller = GetComponent<CharacterController>();
         m_playerInput = new PlayerActionsManager();
-
-        foreach (Transform child in this.transform)
-        {
-            if (child.gameObject.name == "character")
-            {
-                character = child.gameObject;
-                break;
-            }
-        }
-        if (character.name != "character") Debug.LogError("Missing gameobject character in Player");
-        m_animator = character.GetComponent<Animator>();
         UpdatePlayerState(PlayerState.Idle);
     }
 
     private void Start()
     {
-        warpPosition = Vector3.zero;
-        RandomPlayerPosition();
         m_NumberTreasureDigged = 0;
     }
 
@@ -91,18 +75,6 @@ public class PlayerController : MonoBehaviour
 
         m_playerVelocity.y += gravityValue * Time.deltaTime;
         m_controller.Move(m_playerVelocity * Time.deltaTime);
-    }
-
-    private void LateUpdate()
-    {
-        m_animator.SetInteger("PlayerState", (int)m_curPlayerState);
-        //Debug.Log("PlayerState:" + animator.GetInteger("PlayerState"));
-
-        if (warpPosition != Vector3.zero)
-        {
-            transform.position = warpPosition;
-            warpPosition = Vector3.zero;
-        }
     }
 
     void PlayerMove(Vector2 movementInput)
@@ -169,12 +141,5 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         m_playerInput.Disable();
-    }
-
-    public void RandomPlayerPosition()
-    {
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-        GameObject spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        warpPosition = spawnPoint.transform.position;
     }
 }

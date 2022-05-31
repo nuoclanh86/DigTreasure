@@ -43,8 +43,8 @@ public class TreasureChest : MonoBehaviour
         m_positionPlayerDiggingXZ = player.transform.position;
         m_positionPlayerDiggingXZ.y = this.transform.position.y;
 
-        Debug.LogFormat("player.name: {3}, m_isDigged: {0}, Distance: {1}, CurPlayerState: {2}", m_isDigged, Vector3.Distance(m_positionPlayerDiggingXZ, this.transform.position), 
-            player.GetComponent<PlayerController>().CurPlayerState, player.name);
+        //Debug.LogFormat("player.name: {3}, m_isDigged: {0}, Distance: {1}, CurPlayerState: {2}", m_isDigged, Vector3.Distance(m_positionPlayerDiggingXZ, this.transform.position), 
+        //player.GetComponent<PlayerController>().CurPlayerState, player.name);
         if (m_isDigged == false
             && Vector3.Distance(m_positionPlayerDiggingXZ, this.transform.position) <= gameSettings.signal_lvl_3_distance
             && player.GetComponent<PlayerController>().CurPlayerState == PlayerController.PlayerState.Digging
