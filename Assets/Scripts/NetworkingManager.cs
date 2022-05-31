@@ -33,7 +33,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         GameObject mainmenu = GameObject.FindGameObjectWithTag("MainMenuManager");
         if (mainmenu != null)
         {
-            mainmenu.GetComponent<MainMenuManager>().ShowJoinRoomPanel(true);
+            mainmenu.GetComponent<MainMenuManager>().ShowMultiplayerBtn(true);
         }
     }
  

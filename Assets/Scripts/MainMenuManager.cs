@@ -15,12 +15,13 @@ public class MainMenuManager : MonoBehaviour
     {
         if (!PhotonNetwork.InLobby)
         {
-            ShowMultiplayerBtn(true);
+            ShowMultiplayerBtn(false);
+            ConnectServer();
         }
         else
         {
             Debug.Log("Connected to Server");
-            ShowMultiplayerBtn(false);
+            ShowMultiplayerBtn(true);
         }
     }
 
