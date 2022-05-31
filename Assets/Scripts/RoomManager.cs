@@ -14,6 +14,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GlobalGameSettings gameSettings;
 
     bool m_isCheated;
+    string m_addDebugLog = "";
 
     public static RoomManager Instance { get; private set; }
     void Awake()
@@ -48,15 +49,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
         GameObject[] chests = GameObject.FindGameObjectsWithTag("TreasureChest");
         string debugLog = "";
         foreach (GameObject player in players)
-            debugLog += player.name + " - " + player.GetComponent<PlayerController>().NumberTreasureDigged + "\n";
+            debugLog += player.name + "(" + player.GetComponent<PlayerController>().CurPlayerState + ") - " + player.GetComponent<PlayerController>().NumberTreasureDigged + "\n";
         int countChestsDigged = 0;
         foreach (GameObject chest in chests)
         {
+            //debugLog += "chestID : " + chest.GetComponent<TreasureChest>().photonView.ViewID + "\n";
             if (chest.GetComponent<TreasureChest>().IsDigged == true)
                 countChestsDigged++;
         }
         debugLog += "\nChests: " + countChestsDigged + "/" + chests.Length;
         debugLog += "\nCheat: " + m_isCheated;
+        debugLog += m_addDebugLog;
+        m_addDebugLog = "";
         debugText.text = debugLog;
 
         //cheat
@@ -68,6 +72,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             gameSettings.cheatSpeed = 1;
         }
+    }
+
+    public void AddDebugLog(string log)
+    {
+        m_addDebugLog += log;
     }
 
     public bool IsCheated

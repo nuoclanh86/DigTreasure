@@ -41,11 +41,12 @@ public class PlayerController : MonoBehaviour
         }
         if (character.name != "character") Debug.LogError("Missing gameobject character in Player");
         m_animator = character.GetComponent<Animator>();
-        m_curPlayerState = PlayerState.Idle;
+        UpdatePlayerState(PlayerState.Idle);
     }
 
     private void Start()
     {
+        warpPosition = Vector3.zero;
         RandomPlayerPosition();
         m_NumberTreasureDigged = 0;
     }
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
     public PlayerState CurPlayerState
     {
         get { return m_curPlayerState; }
-        set { m_curPlayerState = value; }
+        set { UpdatePlayerState(value); }
     }
 
     private void Update()
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
             PlayerDigging();
         }
         else
-            m_curPlayerState = PlayerState.Idle;
+            UpdatePlayerState(PlayerState.Idle);
 
         //PlayerJump();
 
@@ -110,9 +111,9 @@ public class PlayerController : MonoBehaviour
         m_controller.Move(move * Time.deltaTime * m_moveSpeed * gameManager.gameSettings.cheatSpeed);
         gameObject.transform.forward = move;
         if (m_moveSpeed > gameManager.gameSettings.walkSpeed)
-            m_curPlayerState = PlayerState.Running;
+            UpdatePlayerState(PlayerState.Running);
         else
-            m_curPlayerState = PlayerState.Walking;
+            UpdatePlayerState(PlayerState.Walking);
     }
 
     //void PlayerJump()
@@ -134,10 +135,24 @@ public class PlayerController : MonoBehaviour
         if (m_diggingTimePressCountDown > 0f)
         {
             m_diggingTimePressCountDown -= Time.deltaTime;
-            m_curPlayerState = PlayerState.Digging;
+            UpdatePlayerState(PlayerState.Digging);
         }
         else
-            m_curPlayerState = PlayerState.Idle;
+            UpdatePlayerState(PlayerState.Idle);
+    }
+
+    void UpdatePlayerState(PlayerState ps)
+    {
+        if (!PhotonNetwork.InRoom)
+            UpdatePlayerStatePunRPC(ps);
+        else
+            photonView.RPC("UpdatePlayerStatePunRPC", RpcTarget.All, ps);
+    }
+
+    [PunRPC]
+    void UpdatePlayerStatePunRPC(PlayerState ps)
+    {
+        m_curPlayerState = ps;
     }
 
     public int NumberTreasureDigged
