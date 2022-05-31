@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerDisplay : MonoBehaviour
 {
     GameObject character;
-    public GameObject[] models;
     protected Animator m_animator;
 
     Vector3 warpPosition = Vector3.zero;
@@ -13,7 +12,6 @@ public class PlayerDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        warpPosition = Vector3.zero;
         RandomPlayerModels();
         RandomPlayerPosition();
     }
@@ -44,10 +42,32 @@ public class PlayerDisplay : MonoBehaviour
 
     void RandomPlayerModels()
     {
-        int randomValue = Random.Range(0, models.Length);
-        character = Instantiate(models[0]);
-        character.transform.SetParent(this.transform);
-        character.transform.position = Vector3.zero;
+        //try noob way when searching the best : hardcode ... lol
+        int countModel = 0;
+        foreach (Transform child in this.transform)
+        {
+            if (child.gameObject.name.Contains("character"))
+            {
+                countModel++;
+            }
+        }
+        int randomValue = Random.Range(0, countModel);
+        Debug.Log("randomValue: " + randomValue + "/" + countModel);
+        int i = 0;
+        foreach (Transform child in this.transform)
+        {
+            if (child.gameObject.name.Contains("character"))
+            {
+                if (i == randomValue)
+                {
+                    child.gameObject.SetActive(true);
+                    character = child.gameObject;
+                }
+                else
+                    child.gameObject.SetActive(false);
+                i++;
+            }
+        }
         if (character == null) Debug.LogError("Missing gameobject character in Player");
         m_animator = character.GetComponent<Animator>();
     }
