@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: knight_d_pelegrini_Behavior
+  m_Controller: {fileID: 9100000, guid: fbe8afc5a02212249867e8fc718ec61f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 374380e4fdf48324e8ec7c75b6bf4ce8, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: b52447c5552a5534da1a34256df5ca2f, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 5ad83f957eb2f4943b0482a5e2bf81f8, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 86c628d9f4bf2c4478f043c2d25a8b58, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 26da2838bd96a5c469283c42e328c59d, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 23d063ac2809d6a43b838d72c3eab310, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 1547fdb17a2552f429cb7a6c85eb46d5, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 516a24bf8f47b164bbed04fe991cfd9a, type: 3}
