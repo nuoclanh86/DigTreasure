@@ -90,7 +90,7 @@ public class TreasureChest : MonoBehaviour
     [PunRPC]
     public void OpenTheTreasureChest(bool val)
     {
-        Debug.Log("TreasureChestOpened by : " + player.name + " - photonView.IsMine: " + photonView.IsMine);
+        //Debug.Log("TreasureChestOpened " + val + " by : " + player.name + " - photonView.IsMine: " + photonView.IsMine);
         if (val == true && (!PhotonNetwork.InRoom || photonView.IsMine))
         {
             player.GetComponent<PlayerController>().NumberTreasureDigged++;
