@@ -58,8 +58,9 @@ public class PlayerDisplay : MonoBehaviour
         {
             if (child.gameObject.name.Contains("character"))
             {
-                if (i == randomValue)
-                {
+                if (i == 0)
+                //if (i == randomValue) // still error
+                    {
                     child.gameObject.SetActive(true);
                     character = child.gameObject;
                 }
