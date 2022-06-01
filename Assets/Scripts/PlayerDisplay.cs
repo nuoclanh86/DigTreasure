@@ -43,36 +43,7 @@ public class PlayerDisplay : MonoBehaviour
 
     void RandomPlayerModels()
     {
-        //try noob way when searching the best : hardcode ... lol
-        //int countModel = 0;
-        //foreach (Transform child in this.transform)
-        //{
-        //    if (child.gameObject.name.Contains("character"))
-        //    {
-        //        countModel++;
-        //    }
-        //}
-        //int randomValue = Random.Range(0, countModel);
-        //Debug.Log("randomValue: " + randomValue + "/" + countModel);
-        //int i = 0;
-        //foreach (Transform child in this.transform)
-        //{
-        //    if (child.gameObject.name.Contains("character"))
-        //    {
-        //        if (i == 0)
-        //        //if (i == randomValue) // still error
-        //            {
-        //            child.gameObject.SetActive(true);
-        //            character = child.gameObject;
-        //        }
-        //        else
-        //            child.gameObject.SetActive(false);
-        //        i++;
-        //    }
-        //}
-
-        //try best way
-        int randomValue = Random.Range(0, characterModelsPrefab.Length);
+        int randomValue = Random.Range(1, characterModelsPrefab.Length);
         character = Instantiate(characterModelsPrefab[randomValue], this.transform);
         if (character == null) Debug.LogError("Missing gameobject character in Player");
         m_animator = character.GetComponent<Animator>();

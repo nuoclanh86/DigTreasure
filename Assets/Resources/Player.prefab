@@ -86,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterModelsPrefab:
   - {fileID: 1831442866105546713, guid: d825c91c9d9d59b4c904482c69464508, type: 3}
+  - {fileID: 9127718299981346878, guid: 70132f315926a6740b0fbb94d97a1c98, type: 3}
 --- !u!114 &1539560819297303012
 MonoBehaviour:
   m_ObjectHideFlags: 0
